@@ -197,34 +197,60 @@ export default function AISupportWidget() {
     return mantras[mood];
   };
 
-  const handleConsult = () => {
+  const toneLabel = {
+    sweetness: 'doux, réconfortant, comme un câlin verbal',
+    perspective: 'posé, qui aide à prendre du recul',
+    energy: 'énergique et motivant',
+  };
+
+  const fetchAiReply = async (): Promise<string> => {
+    const prompt = `Une maman se sent "${selectedMood}" et écrit : "${
+      userText || "(elle n'a rien précisé, réconforte-la simplement sur cette humeur)"
+    }". Réponds-lui en français, sur un ton ${toneLabel[selectedTone]}, en 3-4 phrases courtes, sans liste ni markdown, comme une amie bienveillante et psychologue.`;
+
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: prompt }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.answer) {
+      throw new Error(data.error || 'réponse vide');
+    }
+    return data.answer as string;
+  };
+
+  const handleConsult = async () => {
     setIsGenerating(true);
     setTypedResponse('');
-    
-    // Simulate thinking time
-    setTimeout(() => {
-      const response = generateDynamicResponse(selectedMood, userText, selectedTone);
-      const mantra = getMantra(selectedMood);
-      const grounding = GROUNDING_EXERCISES[selectedMood];
-      
-      setAiResponse(response);
-      setActiveMantra(mantra);
-      setActiveGrounding(grounding);
-      setIsGenerating(false);
 
-      // Simple pseudo-typewriter effect for immediate organic read
-      let i = 0;
-      const speed = 10; // Fast and comforting
-      const interval = setInterval(() => {
-        if (i < response.length) {
-          setTypedResponse(prev => prev + response.charAt(i));
-          i += 4; // Step faster to prevent long waiting times
-        } else {
-          setTypedResponse(response);
-          clearInterval(interval);
-        }
-      }, 15);
-    }, 1200);
+    let response: string;
+    try {
+      response = await fetchAiReply();
+    } catch {
+      // Repli sur les réponses pré-écrites si l'API Mistral est indisponible.
+      response = generateDynamicResponse(selectedMood, userText, selectedTone);
+    }
+
+    const mantra = getMantra(selectedMood);
+    const grounding = GROUNDING_EXERCISES[selectedMood];
+
+    setAiResponse(response);
+    setActiveMantra(mantra);
+    setActiveGrounding(grounding);
+    setIsGenerating(false);
+
+    // Simple pseudo-typewriter effect for immediate organic read
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < response.length) {
+        setTypedResponse(prev => prev + response.charAt(i));
+        i += 4; // Step faster to prevent long waiting times
+      } else {
+        setTypedResponse(response);
+        clearInterval(interval);
+      }
+    }, 15);
   };
 
   const selectPreset = (preset: typeof PRESET_PROMPTS[0]) => {
