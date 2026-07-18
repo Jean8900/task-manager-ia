@@ -8,6 +8,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MISTRAL_API_KEY = process.env.MISTRAL_API_KEY || '';
 const MISTRAL_MODEL = 'mistral-small-latest';
 
+if (!MISTRAL_API_KEY) {
+  console.warn('WARNING: MISTRAL_API_KEY is not set. /api/chat will return 500 and the UI will silently fall back to canned responses.');
+}
+
 const app = express();
 app.use(express.json());
 

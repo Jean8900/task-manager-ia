@@ -227,8 +227,9 @@ export default function AISupportWidget() {
     let response: string;
     try {
       response = await fetchAiReply();
-    } catch {
+    } catch (err) {
       // Fall back to pre-written responses if the Mistral API is unavailable.
+      console.error('AI chat request failed, using fallback response:', err);
       response = generateDynamicResponse(selectedMood, userText, selectedTone);
     }
 
