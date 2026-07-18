@@ -10,16 +10,16 @@ interface EmergencySOSProps {
 
 const EMERGENCY_TEMPLATES = [
   {
-    label: "Demande d'aide au conjoint (Dîner & Couchage)",
-    text: "Coucou ! Je me sens un peu débordée ce soir 🥺 Est-ce que tu pourrais s'il te plaît t'occuper de préparer le dîner et de coucher les enfants ? Ça m'aiderait énormément à souffler un peu. Merci d'être là, je t'aime ! ❤️"
+    label: "Ask partner for help (Dinner & Bedtime)",
+    text: "Hey! I'm feeling a bit overwhelmed tonight 🥺 Could you please take care of making dinner and putting the kids to bed? It would help me so much to catch a breath. Thanks for being there, I love you! ❤️"
   },
   {
-    label: "Alerte Fatigue (Option commander à manger)",
-    text: "S.O.S. fatigue intense ce soir ! 🏳️ Est-ce qu'on peut s'organiser pour commander des pizzas ou des sushis ? Je n'ai plus l'énergie de faire à manger. Merci pour ton aide ! 😘"
+    label: "Fatigue Alert (Order food option)",
+    text: "S.O.S. intense fatigue tonight! 🏳️ Could we order pizza or sushi? I don't have the energy to cook. Thanks for your help! 😘"
   },
   {
-    label: "S.O.S. Bain & Devoirs",
-    text: "Coucou ! Journée très dense de mon côté. Est-ce que tu pourras gérer les devoirs et la douche des petits en rentrant s'il te plaît ? Je prends 15 minutes pour me poser dans le calme. Merci infiniment ! 🥰"
+    label: "S.O.S. Bath & Homework",
+    text: "Hey! Really packed day on my end. Could you handle homework and the kids' shower when you get home please? I'm taking 15 minutes to settle down quietly. Thank you so much! 🥰"
   }
 ];
 
@@ -29,7 +29,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
   const [customPriorityText, setCustomPriorityText] = useState('');
   
   // Local automatic breathing pacer for SOS screen
-  const [breathingStatus, setBreathingStatus] = useState<'Inspiration...' | 'Rétention...' | 'Expiration...' | 'Attente...'>('Inspiration...');
+  const [breathingStatus, setBreathingStatus] = useState<'Inhale...' | 'Hold...' | 'Exhale...' | 'Wait...'>('Inhale...');
   const [timerCount, setTimerCount] = useState(4);
 
   useEffect(() => {
@@ -38,11 +38,11 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
         if (prev <= 1) {
           setBreathingStatus(curr => {
             switch (curr) {
-              case 'Inspiration...': return 'Rétention...';
-              case 'Rétention...': return 'Expiration...';
-              case 'Expiration...': return 'Attente...';
-              case 'Attente...': return 'Inspiration...';
-              default: return 'Inspiration...';
+              case 'Inhale...': return 'Hold...';
+              case 'Hold...': return 'Exhale...';
+              case 'Exhale...': return 'Wait...';
+              case 'Wait...': return 'Inhale...';
+              default: return 'Inhale...';
             }
           });
           return 4;
@@ -62,15 +62,15 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
 
   const getBreathingColor = () => {
     switch (breathingStatus) {
-      case 'Inspiration...': return 'bg-emerald-500 text-white';
-      case 'Rétention...': return 'bg-amber-500 text-white';
-      case 'Expiration...': return 'bg-purple-500 text-white';
-      case 'Attente...': return 'bg-stone-500 text-white';
+      case 'Inhale...': return 'bg-emerald-500 text-white';
+      case 'Hold...': return 'bg-amber-500 text-white';
+      case 'Exhale...': return 'bg-purple-500 text-white';
+      case 'Wait...': return 'bg-stone-500 text-white';
     }
   };
 
   const getBreathingScale = () => {
-    return breathingStatus === 'Inspiration...' || breathingStatus === 'Rétention...' ? 1.4 : 1.0;
+    return breathingStatus === 'Inhale...' || breathingStatus === 'Hold...' ? 1.4 : 1.0;
   };
 
   return (
@@ -82,8 +82,8 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
             <ShieldAlert className="w-6 h-6 animate-pulse" />
           </div>
           <div>
-            <h1 className="text-lg font-black uppercase tracking-wider text-[#4B4453] font-display">S.O.S. Débordement</h1>
-            <p className="text-[11px] text-stone-500 font-bold">On arrête tout, on respire, on simplifie.</p>
+            <h1 className="text-lg font-black uppercase tracking-wider text-[#4B4453] font-display">S.O.S. Overwhelm</h1>
+            <p className="text-[11px] text-stone-500 font-bold">Stop everything, breathe, simplify.</p>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
           onClick={onClose}
           className="flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-stone-50 text-[#4B4453] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-all"
         >
-          <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Retour au souffle
+          <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Back to breathing
         </button>
       </div>
 
@@ -101,10 +101,10 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
         {/* LEFT COLUMN: GUIDED CALMING & COPING */}
         <div className="bg-white rounded-[32px] p-6 border-2 border-stone-200 border-b-4 border-r-4 shadow-xs flex flex-col justify-between items-center md:items-start text-center md:text-left space-y-6">
           <div className="space-y-2 w-full">
-            <span className="text-[10px] font-black tracking-widest text-rose-500 uppercase bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-md inline-block">Étape 1 : S'apaiser</span>
-            <h2 className="text-lg font-black uppercase tracking-wider text-[#4B4453] mt-2 font-display">Prends une respiration</h2>
+            <span className="text-[10px] font-black tracking-widest text-rose-500 uppercase bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-md inline-block">Step 1: Calm down</span>
+            <h2 className="text-lg font-black uppercase tracking-wider text-[#4B4453] mt-2 font-display">Take a breath</h2>
             <p className="text-stone-500 text-xs font-bold leading-relaxed max-w-sm mx-auto md:mx-0">
-              Suis le rythme du cercle des yeux. Relâche tes épaules. Tout va bien se passer.
+              Follow the pace of the circle with your eyes. Relax your shoulders. Everything will be okay.
             </p>
           </div>
 
@@ -139,19 +139,19 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
 
           <div className="space-y-1 text-center w-full">
             <p className="text-sm font-black uppercase tracking-wider text-[#4B4453]">{breathingStatus}</p>
-            <p className="text-[10px] text-stone-400 font-bold">Technique d'ancrage express 🧘‍♀️</p>
+            <p className="text-[10px] text-stone-400 font-bold">Quick grounding technique 🧘‍♀️</p>
           </div>
 
           {/* Comforting Rules */}
           <div className="bg-[#FFF4E0] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-[24px] p-4.5 w-full text-left space-y-2.5 text-xs">
             <h4 className="font-black text-[#4B4453] flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-              <Sparkles className="w-4 h-4 text-rose-500 fill-rose-500" /> Règles d'Or anti-culpabilité :
+              <Sparkles className="w-4 h-4 text-rose-500 fill-rose-500" /> Golden anti-guilt rules:
             </h4>
             <ul className="space-y-1.5 text-[#4B4453] font-bold">
-              <li className="flex items-start gap-1"><span>•</span> <span>Un dîner de restes ou des pâtes au beurre, c'est parfait.</span></li>
-              <li className="flex items-start gap-1"><span>•</span> <span>La vaisselle et le linge sale attendront bien demain midi.</span></li>
-              <li className="flex items-start gap-1"><span>•</span> <span>Tes enfants veulent juste une maman calme, pas parfaite.</span></li>
-              <li className="flex items-start gap-1"><span>•</span> <span>Demander de l'aide n'est pas une faiblesse, c'est de l'amour propre.</span></li>
+              <li className="flex items-start gap-1"><span>•</span> <span>Leftovers or buttered pasta for dinner is perfectly fine.</span></li>
+              <li className="flex items-start gap-1"><span>•</span> <span>The dishes and laundry can wait until tomorrow noon.</span></li>
+              <li className="flex items-start gap-1"><span>•</span> <span>Your kids just want a calm mom, not a perfect one.</span></li>
+              <li className="flex items-start gap-1"><span>•</span> <span>Asking for help isn't weakness, it's self-love.</span></li>
             </ul>
           </div>
         </div>
@@ -162,8 +162,8 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
           {/* STEP 2: THE ONE SINGLE TASK - HYPERFOCUS */}
           <div className="bg-white rounded-[32px] p-6 border-2 border-stone-200 border-b-4 border-r-4 shadow-xs space-y-4">
             <div>
-              <span className="text-[10px] font-black tracking-widest text-[#4B4453] uppercase bg-[#FFD966]/50 border border-[#FFD966] px-2.5 py-1 rounded-md inline-block">Étape 2 : L'essentiel absolu</span>
-              <h3 className="text-sm font-black uppercase tracking-wider text-[#4B4453] mt-2.5">Quelle est LA seule tâche importante ce soir ?</h3>
+              <span className="text-[10px] font-black tracking-widest text-[#4B4453] uppercase bg-[#FFD966]/50 border border-[#FFD966] px-2.5 py-1 rounded-md inline-block">Step 2: The absolute essential</span>
+              <h3 className="text-sm font-black uppercase tracking-wider text-[#4B4453] mt-2.5">What is THE one important task tonight?</h3>
             </div>
 
             {selectedSingleTask ? (
@@ -176,7 +176,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
                   onClick={() => setSelectedSingleTask(null)}
                   className="text-[10px] font-black uppercase tracking-wider text-rose-600 hover:text-rose-700 bg-white border border-[#4B4453] px-2.5 py-1 rounded-lg cursor-pointer"
                 >
-                  Changer
+                  Change
                 </button>
               </div>
             ) : (
@@ -198,7 +198,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Écris ton unique tâche ici..."
+                    placeholder="Write your one task here..."
                     value={customPriorityText}
                     onChange={(e) => setCustomPriorityText(e.target.value)}
                     className="flex-1 bg-stone-50 border-2 border-stone-200 rounded-xl text-xs px-3.5 py-2.5 text-[#4B4453] font-bold focus:outline-hidden focus:ring-2 focus:ring-[#FFD966] focus:border-transparent"
@@ -212,7 +212,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
                     }}
                     className="px-4 bg-[#FF6B6B] hover:bg-[#ff5555] text-white border-2 border-[#4B4453] border-b-4 border-r-4 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer"
                   >
-                    Valider
+                    Confirm
                   </button>
                 </div>
               </div>
@@ -222,9 +222,9 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
           {/* STEP 3: DELEGATE / ASK FOR HELP IN 1 TAP */}
           <div className="bg-white rounded-[32px] p-6 border-2 border-stone-200 border-b-4 border-r-4 shadow-xs space-y-4">
             <div>
-              <span className="text-[10px] font-black tracking-widest text-[#4B4453] uppercase bg-[#E0F2F1] border border-[#E0F2F1] px-2.5 py-1 rounded-md inline-block">Étape 3 : Déléguer</span>
-              <h3 className="text-sm font-black uppercase tracking-wider text-[#4B4453] mt-2.5">Demander de l'aide en 1 Clic (Copier)</h3>
-              <p className="text-[10px] text-stone-500 font-bold mt-1">Copie un message rédigé avec amour et envoie-le à ton conjoint.</p>
+              <span className="text-[10px] font-black tracking-widest text-[#4B4453] uppercase bg-[#E0F2F1] border border-[#E0F2F1] px-2.5 py-1 rounded-md inline-block">Step 3: Delegate</span>
+              <h3 className="text-sm font-black uppercase tracking-wider text-[#4B4453] mt-2.5">Ask for help in 1 Click (Copy)</h3>
+              <p className="text-[10px] text-stone-500 font-bold mt-1">Copy a message written with love and send it to your partner.</p>
             </div>
 
             <div className="space-y-3 max-h-56 overflow-y-auto no-scrollbar">
@@ -244,11 +244,11 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
                       >
                         {isCopied ? (
                           <>
-                            <Check className="w-3 h-3 stroke-[3px]" /> Copié !
+                            <Check className="w-3 h-3 stroke-[3px]" /> Copied!
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3 h-3 stroke-[3px]" /> Copier
+                            <Copy className="w-3 h-3 stroke-[3px]" /> Copy
                           </>
                         )}
                       </button>
@@ -269,7 +269,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
       {/* FOOTER COMFORTING MESSAGE */}
       <div className="max-w-4xl mx-auto w-full text-center text-[11px] text-[#4B4453] font-black uppercase tracking-wider pt-4 border-t-2 border-stone-200 mt-auto flex items-center justify-center gap-1.5">
         <Heart className="w-4.5 h-4.5 text-rose-500 fill-rose-500 animate-pulse" />
-        Tu es une maman merveilleuse. C'est normal de saturer. Prends soin de toi en premier !
+        You are a wonderful mom. It's normal to feel overwhelmed. Take care of yourself first!
       </div>
     </div>
   );

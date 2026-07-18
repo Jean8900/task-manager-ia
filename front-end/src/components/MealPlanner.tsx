@@ -28,27 +28,27 @@ interface MealPlannerProps {
 }
 
 const DINNER_SUGGESTIONS: DinnerSuggestion[] = [
-  { name: 'Pâtes Carbonara 🍝', ingredients: ['Pâtes', 'Lardons', 'Crème fraîche', 'Parmesan'] },
-  { name: 'Gratin de Courgettes 🍲', ingredients: ['Courgettes', 'Pommes de terre', 'Lait', 'Fromage râpé'] },
-  { name: 'Croque-Monsieur express 🥪', ingredients: ['Pain de mie', 'Jambon', 'Fromage fondant', 'Beurre'] },
-  { name: 'Poulet rôti & Frites 🍗', ingredients: ['Poulet entier', 'Pommes de terre à frites', 'Ail', 'Herbes de provence'] },
-  { name: 'Fajitas de Poulet 🌮', ingredients: ['Galettes de blé', 'Escalopes de poulet', 'Poivrons', 'Épices mexicaines', 'Avocat'] },
-  { name: 'Crêpes salées 🥞', ingredients: ['Farine', 'Œufs', 'Lait', 'Jambon', 'Fromage', 'Champignons'] },
-  { name: 'Soupe de légumes maison 🥕', ingredients: ['Carottes', 'Poireaux', 'Pommes de terre', 'Cube bouillon'] },
-  { name: 'Saumon & Riz sauté 🐟', ingredients: ['Pavés de saumon', 'Riz basmati', 'Sauce soja', 'Courgettes'] }
+  { name: 'Pasta Carbonara 🍝', ingredients: ['Pasta', 'Bacon bits', 'Crème fraîche', 'Parmesan'] },
+  { name: 'Zucchini Gratin 🍲', ingredients: ['Zucchini', 'Potatoes', 'Milk', 'Grated cheese'] },
+  { name: 'Quick Croque-Monsieur 🥪', ingredients: ['Sandwich bread', 'Ham', 'Melting cheese', 'Butter'] },
+  { name: 'Roast Chicken & Fries 🍗', ingredients: ['Whole chicken', 'Fries potatoes', 'Garlic', 'Herbes de Provence'] },
+  { name: 'Chicken Fajitas 🌮', ingredients: ['Wheat tortillas', 'Chicken breasts', 'Bell peppers', 'Mexican spices', 'Avocado'] },
+  { name: 'Savory Crêpes 🥞', ingredients: ['Flour', 'Eggs', 'Milk', 'Ham', 'Cheese', 'Mushrooms'] },
+  { name: 'Homemade Vegetable Soup 🥕', ingredients: ['Carrots', 'Leeks', 'Potatoes', 'Stock cube'] },
+  { name: 'Salmon & Fried Rice 🐟', ingredients: ['Salmon fillets', 'Basmati rice', 'Soy sauce', 'Zucchini'] }
 ];
 
 const PRESET_GROCERIES = [
-  { name: 'Lait 🥛', category: 'Frais' },
-  { name: 'Beurre 🧈', category: 'Frais' },
-  { name: 'Œufs 🥚', category: 'Frais' },
-  { name: 'Pain de mie 🍞', category: 'Épicerie' },
-  { name: 'Fruits frais 🍎', category: 'Fruits/Légumes' },
-  { name: 'Couches / Lingettes 🍼', category: 'Bébé/Hygiène' },
-  { name: 'Papier toilette 🧻', category: 'Maison' }
+  { name: 'Milk 🥛', category: 'Fresh' },
+  { name: 'Butter 🧈', category: 'Fresh' },
+  { name: 'Eggs 🥚', category: 'Fresh' },
+  { name: 'Sandwich bread 🍞', category: 'Groceries' },
+  { name: 'Fresh fruit 🍎', category: 'Fruits/Vegetables' },
+  { name: 'Diapers / Wipes 🍼', category: 'Baby/Hygiene' },
+  { name: 'Toilet paper 🧻', category: 'Home' }
 ];
 
-const GROCERY_CATEGORIES = ['Frais', 'Épicerie', 'Fruits/Légumes', 'Bébé/Hygiène', 'Maison', 'Autre'];
+const GROCERY_CATEGORIES = ['Fresh', 'Groceries', 'Fruits/Vegetables', 'Baby/Hygiene', 'Home', 'Other'];
 
 export default function MealPlanner({
   meals,
@@ -59,9 +59,9 @@ export default function MealPlanner({
   onDeleteGroceryItem,
   onClearBoughtGroceries,
 }: MealPlannerProps) {
-  const [activeDay, setActiveDay] = useState('Lundi');
+  const [activeDay, setActiveDay] = useState('Monday');
   const [newGroceryName, setNewGroceryName] = useState('');
-  const [selectedGroceryCat, setSelectedGroceryCat] = useState('Frais');
+  const [selectedGroceryCat, setSelectedGroceryCat] = useState('Fresh');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestedMealIngredients, setSuggestedMealIngredients] = useState<{ meal: string; ingredients: string[] } | null>(null);
 
@@ -91,12 +91,12 @@ export default function MealPlanner({
   const handleAddSuggestedIngredients = () => {
     if (suggestedMealIngredients) {
       suggestedMealIngredients.ingredients.forEach(ing => {
-        // Find category automatically based on ingredient name or put as 'Autre'
-        let cat = 'Épicerie';
-        if (['Crème fraîche', 'Lardons', 'Parmesan', 'Fromage râpé', 'Lait', 'Fromage fondant', 'Beurre', 'Jambon', 'Fromage', 'Œufs', 'Pavés de saumon'].includes(ing)) {
-          cat = 'Frais';
-        } else if (['Courgettes', 'Pommes de terre', 'Poivrons', 'Avocat', 'Carottes', 'Poireaux', 'Pommes de terre à frites'].includes(ing)) {
-          cat = 'Fruits/Légumes';
+        // Find category automatically based on ingredient name or put as 'Other'
+        let cat = 'Groceries';
+        if (['Crème fraîche', 'Bacon bits', 'Parmesan', 'Grated cheese', 'Milk', 'Melting cheese', 'Butter', 'Ham', 'Cheese', 'Eggs', 'Salmon fillets'].includes(ing)) {
+          cat = 'Fresh';
+        } else if (['Zucchini', 'Potatoes', 'Bell peppers', 'Avocado', 'Carrots', 'Leeks', 'Fries potatoes'].includes(ing)) {
+          cat = 'Fruits/Vegetables';
         }
         onAddGroceryItem(ing, cat);
       });
@@ -123,8 +123,8 @@ export default function MealPlanner({
               <Utensils className="w-5.5 h-5.5 stroke-[2.5px]" />
             </div>
             <div>
-              <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Menu de la Semaine</h2>
-              <p className="text-[11px] text-stone-500 font-bold">Allège la charge mentale du "Qu'est-ce qu'on mange ?"</p>
+              <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Weekly Menu</h2>
+              <p className="text-[11px] text-stone-500 font-bold">Lightens the "What's for dinner?" mental load</p>
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export default function MealPlanner({
               >
                 {m.day}
                 <span className="block text-[8px] font-black uppercase tracking-wider mt-0.5 opacity-80">
-                  {m.dinner ? '✅ Prévu' : '🍽️ Libre'}
+                  {m.dinner ? '✅ Planned' : '🍽️ Free'}
                 </span>
               </button>
             ))}
@@ -154,17 +154,17 @@ export default function MealPlanner({
           {/* Active day detail planner */}
           <div className="mt-2 bg-stone-50/70 border-2 border-stone-100 rounded-[28px] p-5 space-y-4">
             <h3 className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center gap-1.5 mb-2">
-              <Calendar className="w-4 h-4 text-rose-500" /> Plan du {activeDay}
+              <Calendar className="w-4 h-4 text-rose-500" /> {activeDay}'s Plan
             </h3>
 
             {/* Lunch Field */}
             <div className="space-y-1.5">
               <label className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center gap-1.5">
-                ☀️ Midi (Déjeuner)
+                ☀️ Midday (Lunch)
               </label>
               <input
                 type="text"
-                placeholder="Ex: Restes, Pique-nique, Cantine, Salade de riz..."
+                placeholder="Ex: Leftovers, Picnic, School canteen, Rice salad..."
                 value={activeDayMeal.lunch}
                 onChange={(e) => handleUpdateMealInput(activeDay, 'lunch', e.target.value)}
                 className="w-full px-4 py-3 bg-white border-2 border-stone-200 rounded-2xl text-xs font-bold text-[#4B4453] placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#FFD966] focus:border-transparent transition-all"
@@ -175,21 +175,21 @@ export default function MealPlanner({
             <div className="space-y-1.5">
               <div className="flex justify-between items-center mb-1">
                 <label className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center gap-1.5">
-                  🌙 Soir (Dîner)
+                  🌙 Evening (Dinner)
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowSuggestions(!showSuggestions)}
                   className="text-[10px] font-black uppercase tracking-wider text-[#4B4453] bg-amber-100 hover:bg-amber-200 border-2 border-[#4B4453] px-2.5 py-1 rounded-xl transition-all flex items-center gap-1"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-500" /> {showSuggestions ? "Masquer" : "Idées express !"}
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-500" /> {showSuggestions ? "Hide" : "Quick ideas!"}
                 </button>
               </div>
 
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Ex: Gratin de courgettes, Pâtes bolo..."
+                  placeholder="Ex: Zucchini gratin, Pasta bolognese..."
                   value={activeDayMeal.dinner}
                   onChange={(e) => handleUpdateMealInput(activeDay, 'dinner', e.target.value)}
                   className="w-full px-4 py-3 bg-white border-2 border-stone-200 rounded-2xl text-xs font-bold text-[#4B4453] placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#FFD966] focus:border-transparent transition-all"
@@ -205,7 +205,7 @@ export default function MealPlanner({
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden bg-white border-2 border-[#4B4453] border-b-4 border-r-4 rounded-[22px] mt-2 p-3"
                   >
-                    <p className="text-[10px] text-[#4B4453] font-black uppercase tracking-wider mb-2 px-1">Dîners rapides adorés des enfants :</p>
+                    <p className="text-[10px] text-[#4B4453] font-black uppercase tracking-wider mb-2 px-1">Quick dinners kids love:</p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-48 overflow-y-auto no-scrollbar">
                       {DINNER_SUGGESTIONS.map((suggestion) => (
                         <button
@@ -235,8 +235,8 @@ export default function MealPlanner({
                 className="mt-4 p-4.5 bg-[#FFF4E0] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-[24px] text-xs flex flex-col md:flex-row items-center justify-between gap-3"
               >
                 <div>
-                  <span className="font-black text-amber-950 flex items-center gap-1 uppercase tracking-wider text-[11px]">🪄 Synchro courses : </span>
-                  <span className="text-[#4B4453] font-bold text-xs">Ajouter les ingrédients du {suggestedMealIngredients.meal} à la liste ?</span>
+                  <span className="font-black text-amber-950 flex items-center gap-1 uppercase tracking-wider text-[11px]">🪄 Grocery sync: </span>
+                  <span className="text-[#4B4453] font-bold text-xs">Add the ingredients for {suggestedMealIngredients.meal} to the list?</span>
                   <p className="text-[10px] text-[#4B4453]/80 font-semibold mt-1">({suggestedMealIngredients.ingredients.join(', ')})</p>
                 </div>
                 <div className="flex gap-2 shrink-0 w-full md:w-auto justify-end">
@@ -244,13 +244,13 @@ export default function MealPlanner({
                     onClick={() => setSuggestedMealIngredients(null)}
                     className="px-3 py-2 bg-stone-100 hover:bg-stone-200 border-2 border-stone-300 rounded-xl text-stone-600 font-black text-[10px] uppercase tracking-wider cursor-pointer"
                   >
-                    Non merci
+                    No thanks
                   </button>
                   <button
                     onClick={handleAddSuggestedIngredients}
                     className="px-4 py-2 bg-[#FF6B6B] hover:bg-[#ff5555] text-white border-2 border-[#4B4453] border-b-4 border-r-4 rounded-xl font-black text-[10px] uppercase tracking-wider flex items-center gap-1 shadow-xs cursor-pointer"
                   >
-                    <Check className="w-3.5 h-3.5 stroke-[3px]" /> Oui, ajouter !
+                    <Check className="w-3.5 h-3.5 stroke-[3px]" /> Yes, add it!
                   </button>
                 </div>
               </motion.div>
@@ -268,8 +268,8 @@ export default function MealPlanner({
                 <ShoppingCart className="w-5.5 h-5.5 stroke-[2.5px]" />
               </div>
               <div>
-                <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Liste de Courses</h2>
-                <p className="text-[11px] text-stone-500 font-bold">{groceries.length} articles à acheter</p>
+                <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Grocery List</h2>
+                <p className="text-[11px] text-stone-500 font-bold">{groceries.length} items to buy</p>
               </div>
             </div>
 
@@ -278,7 +278,7 @@ export default function MealPlanner({
                 onClick={onClearBoughtGroceries}
                 className="text-[10px] text-stone-400 hover:text-red-500 hover:bg-red-50 px-2.5 py-1.5 rounded-xl font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer border-2 border-transparent hover:border-red-100"
               >
-                <Trash2 className="w-3.5 h-3.5" /> Nettoyer
+                <Trash2 className="w-3.5 h-3.5" /> Clear
               </button>
             )}
           </div>
@@ -288,7 +288,7 @@ export default function MealPlanner({
             <input
               type="text"
               required
-              placeholder="Ajouter : beurre, pommes..."
+              placeholder="Add: butter, apples..."
               value={newGroceryName}
               onChange={(e) => setNewGroceryName(e.target.value)}
               className="flex-1 px-3 py-2.5 bg-stone-50 border-2 border-stone-200 rounded-xl text-xs text-[#4B4453] font-bold placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#FFD966] focus:border-transparent transition-all"
@@ -312,7 +312,7 @@ export default function MealPlanner({
 
           {/* Presets/Frictionless Shopping additions - 1 Click adds */}
           <div className="mb-4 bg-stone-50/50 p-3 rounded-2xl border border-stone-100">
-            <p className="text-[10px] text-[#4B4453] font-black uppercase tracking-wider mb-2 px-0.5">Indispensables en 1 clic :</p>
+            <p className="text-[10px] text-[#4B4453] font-black uppercase tracking-wider mb-2 px-0.5">1-click essentials:</p>
             <div className="flex flex-wrap gap-1">
               {PRESET_GROCERIES.map((preset) => {
                 const alreadyAdded = groceries.some(g => g.name.toLowerCase().includes(preset.name.split(' ')[0].toLowerCase()) && !g.isBought);
@@ -341,8 +341,8 @@ export default function MealPlanner({
             {groceries.length === 0 ? (
               <div className="text-center py-8 border-2 border-dashed border-stone-200 rounded-[24px] bg-stone-50/30">
                 <ShoppingCart className="w-8 h-8 text-stone-300 mx-auto mb-2 stroke-[1.5px]" />
-                <p className="text-[#4B4453] text-xs font-black uppercase tracking-wider">Le frigo est plein !</p>
-                <p className="text-[10px] text-stone-400 font-semibold mt-1">Ajoute des produits ou choisis une idée dîner.</p>
+                <p className="text-[#4B4453] text-xs font-black uppercase tracking-wider">The fridge is full!</p>
+                <p className="text-[10px] text-stone-400 font-semibold mt-1">Add items or pick a dinner idea.</p>
               </div>
             ) : (
               Object.entries(groupedGroceries).map(([category, items]) => (

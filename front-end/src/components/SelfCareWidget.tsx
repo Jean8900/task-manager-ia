@@ -4,22 +4,22 @@ import { motion, AnimatePresence } from 'motion/react';
 import EmergencySOS from './EmergencySOS';
 
 const MATERNAL_AFFIRMATIONS = [
-  "Tu fais de ton mieux, et c'est amplement suffisant. ✨",
-  "Le repos n'est pas une récompense, c'est une nécessité absolue. 🌸",
-  "Tes enfants t'aiment pour ta présence, pas pour une maison parfaite. ❤️",
-  "Il est normal d'être fatiguée. Sois douce envers toi-même.",
-  "Dire non aux autres, c'est parfois dire oui à sa propre santé.",
-  "Tu es le pilier, mais tu as aussi le droit de t'appuyer sur les autres. 💪",
-  "Une maman reposée est le plus beau des cadeaux pour sa famille. 🧘‍♀️",
-  "Une chose après l'autre. Respire, tu gères déjà énormément !"
+  "You're doing your best, and that is more than enough. ✨",
+  "Rest isn't a reward, it's an absolute necessity. 🌸",
+  "Your kids love you for being present, not for a perfect house. ❤️",
+  "It's okay to be tired. Be gentle with yourself.",
+  "Saying no to others is sometimes saying yes to your own health.",
+  "You're the pillar, but you also have the right to lean on others. 💪",
+  "A rested mom is the best gift for her family. 🧘‍♀️",
+  "One thing at a time. Breathe, you're already handling so much!"
 ];
 
 const SELF_CARE_TARGETS = [
-  { id: 'tea', text: 'Boire une boisson chaude avant qu\'elle ne refroidisse ☕' },
-  { id: 'music', text: 'Écouter ma chanson préférée en fermant les yeux 🎵' },
-  { id: 'stretch', text: 'Faire 3 étirements simples des épaules et du cou 🧘‍♀️' },
-  { id: 'no_task', text: 'Reporter une tâche non-urgente à demain sans culpabilité 😌' },
-  { id: 'laugh', text: 'Partager un fou rire ou un câlin de 20 secondes ❤️' }
+  { id: 'tea', text: 'Drink a hot beverage before it gets cold ☕' },
+  { id: 'music', text: 'Listen to my favorite song with my eyes closed 🎵' },
+  { id: 'stretch', text: 'Do 3 simple shoulder and neck stretches 🧘‍♀️' },
+  { id: 'no_task', text: 'Postpone a non-urgent task to tomorrow without guilt 😌' },
+  { id: 'laugh', text: 'Share a good laugh or a 20-second hug ❤️' }
 ];
 
 interface SelfCareWidgetProps {
@@ -37,7 +37,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
 
   // Breathing Guide state
   const [isBreathing, setIsBreathing] = useState(false);
-  const [breathPhase, setBreathPhase] = useState<'inspire' | 'bloque-plein' | 'expire' | 'bloque-vide'>('inspire');
+  const [breathPhase, setBreathPhase] = useState<'inhale' | 'hold-full' | 'exhale' | 'hold-empty'>('inhale');
   const [secondsLeft, setSecondsLeft] = useState(4);
   const breathIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -49,7 +49,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
   useEffect(() => {
     if (isBreathing) {
       setSecondsLeft(4);
-      setBreathPhase('inspire');
+      setBreathPhase('inhale');
 
       breathIntervalRef.current = setInterval(() => {
         setSecondsLeft((prev) => {
@@ -57,11 +57,11 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
             // Cycle phases
             setBreathPhase((currentPhase) => {
               switch (currentPhase) {
-                case 'inspire': return 'bloque-plein';
-                case 'bloque-plein': return 'expire';
-                case 'expire': return 'bloque-vide';
-                case 'bloque-vide': return 'inspire';
-                default: return 'inspire';
+                case 'inhale': return 'hold-full';
+                case 'hold-full': return 'exhale';
+                case 'exhale': return 'hold-empty';
+                case 'hold-empty': return 'inhale';
+                default: return 'inhale';
               }
             });
             return 4; // Reset to 4 seconds
@@ -96,10 +96,10 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
   // Get localized phase instructions
   const getPhaseInstruction = () => {
     switch (breathPhase) {
-      case 'inspire': return { title: 'Inspire...', color: 'text-emerald-700', scale: 1.4 };
-      case 'bloque-plein': return { title: 'Bloque plein...', color: 'text-amber-700', scale: 1.4 };
-      case 'expire': return { title: 'Expire doucement...', color: 'text-purple-700', scale: 1.0 };
-      case 'bloque-vide': return { title: 'Bloque vide...', color: 'text-stone-600', scale: 1.0 };
+      case 'inhale': return { title: 'Inhale...', color: 'text-emerald-700', scale: 1.4 };
+      case 'hold-full': return { title: 'Hold...', color: 'text-amber-700', scale: 1.4 };
+      case 'exhale': return { title: 'Exhale gently...', color: 'text-purple-700', scale: 1.0 };
+      case 'hold-empty': return { title: 'Hold empty...', color: 'text-stone-600', scale: 1.0 };
     }
   };
 
@@ -118,7 +118,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
           }`}
         >
           <Wind className="w-4 h-4 text-emerald-600 stroke-[2.5px]" />
-          <span>Souffle & Objectifs</span>
+          <span>Breathing & Goals</span>
         </button>
         <button
           onClick={() => setActiveSubTab('sos')}
@@ -129,7 +129,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
           }`}
         >
           <ShieldAlert className="w-4 h-4 text-rose-500 stroke-[2px]" />
-          <span>S.O.S. Débordement</span>
+          <span>S.O.S. Overwhelm</span>
         </button>
       </div>
 
@@ -144,8 +144,8 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
                 <Wind className="w-5.5 h-5.5 stroke-[2.5px]" />
               </div>
               <div className="flex-1 min-w-0">
-                <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Mon Moment de Souffle</h2>
-                <p className="text-[11px] text-stone-500 font-bold">Prends 1 minute pour relâcher la pression physique.</p>
+                <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">My Breathing Moment</h2>
+                <p className="text-[11px] text-stone-500 font-bold">Take 1 minute to release physical tension.</p>
               </div>
             </div>
 
@@ -154,14 +154,14 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
               {!isBreathing ? (
                 <div className="space-y-4 px-3">
                   <p className="text-[#4B4453] text-xs font-bold leading-relaxed">
-                    La technique du <strong>Carré Respiratoire</strong> permet d'apaiser ton esprit et ton corps en moins d'une minute.
+                    The <strong>Box Breathing</strong> technique helps calm your mind and body in under a minute.
                   </p>
                   <button
                     onClick={() => setIsBreathing(true)}
                     className="px-5 py-3 bg-[#FF6B6B] hover:bg-[#ff5555] text-white border-2 border-[#4B4453] border-b-4 border-r-4 font-black uppercase tracking-wider rounded-2xl text-xs shadow-xs transition-all cursor-pointer flex items-center gap-2 mx-auto"
                     id="start-breathing-btn"
                   >
-                    <Wind className="w-4.5 h-4.5 stroke-[2.5px]" /> Commencer la respiration
+                    <Wind className="w-4.5 h-4.5 stroke-[2.5px]" /> Start breathing
                   </button>
                 </div>
               ) : (
@@ -206,7 +206,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
                       {phaseDetails.title}
                     </p>
                     <p className="text-[9px] text-[#4B4453]/70 font-black uppercase tracking-widest mt-0.5">
-                      Phase : {breathPhase.replace('-', ' ')}
+                      Phase: {breathPhase.replace('-', ' ')}
                     </p>
                   </div>
 
@@ -214,7 +214,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
                     onClick={() => setIsBreathing(false)}
                     className="text-[9.5px] text-[#4B4453] bg-white border-2 border-[#4B4453] px-3.5 py-1.5 rounded-xl font-black uppercase tracking-wider transition-all cursor-pointer"
                   >
-                    Arrêter
+                    Stop
                   </button>
                 </div>
               )}
@@ -231,7 +231,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
                   onClick={nextAffirmation}
                   className="text-[10px] font-black uppercase tracking-wider text-rose-600 hover:text-rose-700 transition-colors mt-2.5 flex items-center gap-1 cursor-pointer"
                 >
-                  <RefreshCw className="w-3 h-3 stroke-[2.5px]" /> Un autre mot doux
+                  <RefreshCw className="w-3 h-3 stroke-[2.5px]" /> Another kind word
                 </button>
               </div>
             </div>
@@ -245,13 +245,13 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
                   <Heart className="w-5.5 h-5.5 stroke-[2.5px]" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Mes Objectifs Douceur</h2>
-                  <p className="text-[11px] text-stone-500 font-bold">Pour ne pas t'oublier dans la logistique du foyer.</p>
+                  <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">My Gentle Goals</h2>
+                  <p className="text-[11px] text-stone-500 font-bold">So you don't forget yourself in the household logistics.</p>
                 </div>
               </div>
 
               <p className="text-stone-500 text-xs font-bold leading-relaxed">
-                Pas de ménage ni de devoirs ici. Coche uniquement ce qui t'a fait du bien aujourd'hui :
+                No chores or homework here. Only check off what made you feel good today:
               </p>
 
               <div className="space-y-2.5">
@@ -283,7 +283,7 @@ export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCar
 
             {completedTargets.length > 0 && (
               <div className="bg-[#FFD966] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-[20px] p-3 text-center text-[10px] text-[#4B4453] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 mt-4">
-                <Sparkles className="w-4 h-4 text-rose-500 fill-rose-500 shrink-0" /> Prendre soin de toi est ta tâche la plus importante ! 🧡
+                <Sparkles className="w-4 h-4 text-rose-500 fill-rose-500 shrink-0" /> Taking care of yourself is your most important task! 🧡
               </div>
             )}
           </div>

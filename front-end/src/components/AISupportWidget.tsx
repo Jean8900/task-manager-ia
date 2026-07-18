@@ -25,67 +25,67 @@ interface GroundingExercise {
 }
 
 const PRESET_PROMPTS = [
-  { id: 'cried', text: "J'ai crié sur mes enfants aujourd'hui... 🥺", mood: 'patience' },
-  { id: 'mess', text: "La maison est un désordre total et je n'arrive à rien 🧹", mood: 'overwhelmed' },
-  { id: 'bad_mom', text: "J'ai l'impression d'être une mauvaise maman 💔", mood: 'guilt' },
-  { id: 'sleep', text: "Je n'ai pas dormi, je suis à bout physiquement 🥱", mood: 'exhausted' },
-  { id: 'alone', text: "Je me sens si seule face à toute cette charge 👤", mood: 'isolated' }
+  { id: 'cried', text: "I yelled at my kids today... 🥺", mood: 'patience' },
+  { id: 'mess', text: "The house is a total mess and I can't get anything done 🧹", mood: 'overwhelmed' },
+  { id: 'bad_mom', text: "I feel like I'm a bad mom 💔", mood: 'guilt' },
+  { id: 'sleep', text: "I haven't slept, I'm physically at my limit 🥱", mood: 'exhausted' },
+  { id: 'alone', text: "I feel so alone carrying all this weight 👤", mood: 'isolated' }
 ];
 
 // Grounding sensory exercise presets
 const GROUNDING_EXERCISES: Record<MoodType, GroundingExercise> = {
   overwhelmed: {
-    title: "L'Ancrage des 5 Sens (Calme rapide)",
+    title: "5-Senses Grounding (Quick calm)",
     steps: [
-      "Regarde 3 objets autour de toi et nomme leur couleur.",
-      "Touche 2 surfaces différentes (tes vêtements, la table) en ressentant la texture.",
-      "Ferme les yeux et écoute 1 bruit lointain.",
-      "Prends une grande inspiration par le nez, expire par la bouche."
+      "Look at 3 objects around you and name their color.",
+      "Touch 2 different surfaces (your clothes, the table) and feel the texture.",
+      "Close your eyes and listen for 1 distant sound.",
+      "Take a deep breath in through your nose, out through your mouth."
     ]
   },
   guilt: {
-    title: "Le Geste d'Auto-Compassion",
+    title: "The Self-Compassion Gesture",
     steps: [
-      "Pose tes deux mains à plat sur ton cœur, doucement.",
-      "Sens la chaleur de tes mains traverser tes vêtements.",
-      "Ferme les yeux et dis-toi dans ta tête : 'Je fais de mon mieux, et c'est déjà beaucoup.'",
-      "Relâche tes épaules et laisse un soupir s'échapper."
+      "Gently place both hands flat on your heart.",
+      "Feel the warmth of your hands through your clothes.",
+      "Close your eyes and tell yourself: 'I'm doing my best, and that's already a lot.'",
+      "Relax your shoulders and let out a sigh."
     ]
   },
   exhausted: {
-    title: "La Recharge Instantanée (Scan corporel court)",
+    title: "Instant Recharge (Short body scan)",
     steps: [
-      "Assieds-toi confortablement ou allonge-toi si possible.",
-      "Laisse tout le poids de ton corps s'enfoncer dans le support (chaise, lit).",
-      "Dessers tes mâchoires, décrispe le front et l'espace entre tes sourcils.",
-      "Prends 3 respirations lentes en imaginant de l'énergie douce entrer à l'inspiration."
+      "Sit comfortably or lie down if you can.",
+      "Let the full weight of your body sink into your support (chair, bed).",
+      "Unclench your jaw, relax your forehead and the space between your eyebrows.",
+      "Take 3 slow breaths, imagining gentle energy flowing in with each inhale."
     ]
   },
   patience: {
-    title: "Le Bouton Pause Physiologique",
+    title: "The Physiological Pause Button",
     steps: [
-      "Mets tes mains sous l'eau fraîche pendant 15 secondes.",
-      "Sens la fraîcheur sur ta peau, cela envoie un signal de calme immédiat à ton cerveau.",
-      "Prends une inspiration lente, bloque l'air 3 secondes, expire très doucement.",
-      "Rappelle-toi : 'La colère est une tempête qui passe. Je suis le ciel calme autour.'"
+      "Run your hands under cool water for 15 seconds.",
+      "Feel the coolness on your skin, it sends an immediate calming signal to your brain.",
+      "Take a slow breath in, hold for 3 seconds, breathe out very gently.",
+      "Remind yourself: 'Anger is a passing storm. I am the calm sky around it.'"
     ]
   },
   isolated: {
-    title: "L'Ancrage au Présent",
+    title: "Grounding in the Present",
     steps: [
-      "Entoure-toi de tes propres bras dans un câlin chaleureux.",
-      "Sens la force et la bienveillance de tes propres mains.",
-      "Rappelle-toi que des milliers de mamans partagent exactement ce sentiment en cet instant précis.",
-      "Tu es connectée à elles par ce fil invisible de la maternité."
+      "Wrap your own arms around yourself in a warm hug.",
+      "Feel the strength and kindness of your own hands.",
+      "Remind yourself that thousands of moms share this exact feeling right now.",
+      "You're connected to them by this invisible thread of motherhood."
     ]
   },
   general: {
-    title: "Le Souffle Libérateur",
+    title: "The Releasing Breath",
     steps: [
-      "Inspire profondément en gonflant le ventre.",
-      "Expire comme si tu soufflais sur une bougie sans l'éteindre.",
-      "Répète 3 fois en relâchant les tensions du cou.",
-      "Sache que cette minute est rien qu'à toi."
+      "Breathe in deeply, filling your belly.",
+      "Breathe out as if blowing gently on a candle without putting it out.",
+      "Repeat 3 times, releasing the tension in your neck.",
+      "Know that this minute is yours alone."
     ]
   }
 };
@@ -107,19 +107,19 @@ export default function AISupportWidget() {
     let keywordsMatched: string[] = [];
 
     // Analyze custom text for keywords
-    if (lowercaseText.includes('crie') || lowercaseText.includes('crié') || lowercaseText.includes('colère') || lowercaseText.includes('fâch') || lowercaseText.includes('patience')) {
+    if (lowercaseText.includes('yell') || lowercaseText.includes('shout') || lowercaseText.includes('anger') || lowercaseText.includes('angry') || lowercaseText.includes('patience')) {
       keywordsMatched.push('patience');
     }
-    if (lowercaseText.includes('ménage') || lowercaseText.includes('désordre') || lowercaseText.includes('bazar') || lowercaseText.includes('vaisselle') || lowercaseText.includes('linge') || lowercaseText.includes('ranger')) {
+    if (lowercaseText.includes('chores') || lowercaseText.includes('mess') || lowercaseText.includes('clutter') || lowercaseText.includes('dishes') || lowercaseText.includes('laundry') || lowercaseText.includes('tidy')) {
       keywordsMatched.push('housework');
     }
-    if (lowercaseText.includes('fatigue') || lowercaseText.includes('épuisé') || lowercaseText.includes('dormir') || lowercaseText.includes('sommeil') || lowercaseText.includes('crevé') || lowercaseText.includes('nuit')) {
+    if (lowercaseText.includes('tired') || lowercaseText.includes('exhaust') || lowercaseText.includes('sleep') || lowercaseText.includes('rest') || lowercaseText.includes('worn out') || lowercaseText.includes('night')) {
       keywordsMatched.push('exhaustion');
     }
-    if (lowercaseText.includes('mauvaise') || lowercaseText.includes('nulle') || lowercaseText.includes('coupable') || lowercaseText.includes('s\'en vouloir') || lowercaseText.includes('culpabilité')) {
+    if (lowercaseText.includes('bad mom') || lowercaseText.includes('worthless') || lowercaseText.includes('guilty') || lowercaseText.includes('blame myself') || lowercaseText.includes('guilt')) {
       keywordsMatched.push('guilt');
     }
-    if (lowercaseText.includes('seule') || lowercaseText.includes('isolé') || lowercaseText.includes('solitude') || lowercaseText.includes('conjoint') || lowercaseText.includes('personne')) {
+    if (lowercaseText.includes('alone') || lowercaseText.includes('isolat') || lowercaseText.includes('lonel') || lowercaseText.includes('partner') || lowercaseText.includes('nobody')) {
       keywordsMatched.push('isolation');
     }
 
@@ -135,9 +135,9 @@ export default function AISupportWidget() {
 
     // Tones response variations
     const toneIntro = {
-      sweetness: "Je t'entends, et je t'enveloppe de toute la douceur possible en ce moment. Ferme les yeux un court instant, pose tes mains sur ton ventre, et écoute ceci :",
-      perspective: "Prenons un instant de recul objectif et bienveillant ensemble. Ce que tu ressens est la conséquence logique d'une surcharge, pas d'un manque d'amour ou de compétence :",
-      energy: "On lève la tête, on respire un grand coup et on remet les choses à leur place ! Tu as une force incroyable en toi, et aujourd'hui on va chasser cette culpabilité inutile :"
+      sweetness: "I hear you, and I'm wrapping you in all the gentleness I can right now. Close your eyes for a moment, place your hands on your belly, and listen to this:",
+      perspective: "Let's take an objective, caring step back together. What you're feeling is the logical consequence of being overloaded, not a lack of love or competence:",
+      energy: "Chin up, take a deep breath, and let's put things back in perspective! You have incredible strength in you, and today we're chasing away this needless guilt:"
     };
 
     // Build central message paragraphs
@@ -148,36 +148,36 @@ export default function AISupportWidget() {
     keywordsMatched.forEach(key => {
       if (key === 'patience') {
         paragraphs.push(
-          "C'est tellement normal de perdre patience quand ton réservoir est vide. Ton cri ou ton énervement n'est pas un manque d'amour, c'est le signal d'alarme de ton système nerveux saturé. Ton enfant n'a pas besoin d'une maman parfaite, il a besoin d'une maman humaine. Une fois la tempête passée, un simple câlin et un mot doux réparateur ('maman était fatiguée, je m'excuse d'avoir haussé le ton') enseigne une magnifique leçon à ton enfant : le droit à l'erreur et la beauté de la réconciliation."
+          "It's so normal to lose patience when your tank is empty. Your yelling or frustration isn't a lack of love, it's the alarm signal of an overloaded nervous system. Your child doesn't need a perfect mom, they need a human one. Once the storm passes, a simple hug and a healing kind word ('mom was tired, I'm sorry I raised my voice') teaches your child a beautiful lesson: the right to make mistakes and the beauty of making up."
         );
       } else if (key === 'housework') {
         paragraphs.push(
-          "Le désordre et la vaisselle accumulée ne définissent pas ta valeur en tant que mère. Une maison vivante est rarement une maison témoin ! Les jouets éparpillés sont les preuves de la vie et de la créativité de tes enfants. Ce soir, le ménage n'est pas ta priorité. Choisis ton repos et ton bien-être mental. Tes enfants se souviendront de ton rire et de ton regard posé sur eux, jamais de l'éclat de ton plan de travail."
+          "The mess and the pile of dishes don't define your worth as a mother. A lived-in home is rarely a showroom! Scattered toys are proof of your kids' life and creativity. Tonight, chores are not your priority. Choose your rest and your mental well-being. Your kids will remember your laughter and your loving gaze on them, never the shine of your countertop."
         );
       } else if (key === 'exhaustion') {
         paragraphs.push(
-          "La privation de sommeil et la fatigue chronique ne sont pas de simples inconforts, elles modifient chimiquement la perception de la réalité et de tes émotions. Il est scientifiquement normal de se sentir plus triste, anxieuse ou irritable dans cet état d'épuisement extrême. Tu es en mode survie. Réduis toutes tes exigences au strict minimum aujourd'hui. Le repos n'est pas un luxe, c'est ta priorité absolue."
+          "Sleep deprivation and chronic fatigue aren't mere discomforts, they chemically alter your perception of reality and your emotions. It's scientifically normal to feel sadder, more anxious, or more irritable in this state of extreme exhaustion. You're in survival mode. Reduce all your demands to the strict minimum today. Rest isn't a luxury, it's your absolute priority."
         );
       } else if (key === 'guilt') {
         paragraphs.push(
-          "La culpabilité est le piège de la 'maman parfaite' imaginaire. Elle naît de l'amour immense que tu portes à tes enfants et de ton envie de bien faire. Mais tu as le droit d'avoir des limites, d'être fatiguée et d'avoir besoin de temps pour toi. Tu fais un travail titanesque avec les outils, l'énergie et le soutien dont tu disposes aujourd'hui. Tu es exactement la maman dont tes enfants ont besoin."
+          "Guilt is the trap of the imaginary 'perfect mom'. It's born from the immense love you have for your kids and your desire to do well. But you have the right to have limits, to be tired, and to need time for yourself. You're doing a monumental job with the tools, energy, and support you have today. You are exactly the mom your kids need."
         );
       } else if (key === 'isolation') {
         paragraphs.push(
-          "La maternité moderne nous demande de porter le poids d'un village entier sur les épaules d'une seule personne. Ce sentiment d'isolement est légitime. Tu n'as pas à tout accomplir seule. N'hésite pas à exprimer clairement tes limites et à demander de l'aide concrète. Te faire soutenir n'est pas un aveu d'échec, c'est un acte de courage et d'amour envers toi et ta famille."
+          "Modern motherhood asks us to carry the weight of an entire village on one person's shoulders. This feeling of isolation is legitimate. You don't have to do it all alone. Don't hesitate to clearly express your limits and ask for concrete help. Getting support isn't an admission of failure, it's an act of courage and love toward yourself and your family."
         );
       } else {
         paragraphs.push(
-          "Prends une grande inspiration. Ce que tu traverses en ce moment est intense, et tous tes ressentis sont 100% valides. Tu as le droit d'être fatiguée, d'avoir des doutes et de vouloir souffler. Ne confonds pas une journée difficile ou un moment de débordement avec un échec de vie. Tu fais de ton mieux, et c'est déjà amplement suffisant."
+          "Take a deep breath. What you're going through right now is intense, and everything you feel is 100% valid. You have the right to be tired, to have doubts, and to want a break. Don't confuse a hard day or a moment of overwhelm with failing at life. You're doing your best, and that's already more than enough."
         );
       }
     });
 
     // Concluding dynamic comfort line
     const toneOutro = {
-      sweetness: "Tu es enveloppée d'amour. Prends soin de toi, tu es le cœur de ton foyer. ❤️",
-      perspective: "Rappelle-toi de cette vérité scientifique : une maman heureuse et reposée est le plus grand pilier pour un enfant. Laisse tomber le reste ce soir. ⚖️",
-      energy: "Redresse les épaules, prends un grand verre d'eau et offre-toi un moment de répit bien mérité sans une once de regret. Tu es fantastique ! ⚡"
+      sweetness: "You are wrapped in love. Take care of yourself, you are the heart of your home. ❤️",
+      perspective: "Remember this scientific truth: a happy, rested mom is the greatest pillar for a child. Let the rest go tonight. ⚖️",
+      energy: "Stand tall, drink a big glass of water, and give yourself a well-deserved break without an ounce of regret. You're amazing! ⚡"
     };
     paragraphs.push(toneOutro[tone]);
 
@@ -187,26 +187,26 @@ export default function AISupportWidget() {
   // Get localized short mantras
   const getMantra = (mood: MoodType): string => {
     const mantras: Record<MoodType, string> = {
-      overwhelmed: "Je ne peux pas tout faire, et c'est parfaitement correct ainsi. La priorité, c'est mon calme. 🌸",
-      guilt: "Mes enfants n'ont pas besoin d'une maman parfaite, ils ont besoin d'une maman heureuse et apaisée. ❤️",
-      exhausted: "Le repos est une nécessité biologique, pas une récompense à mériter. Je m'autorise à ralentir. 🥱",
-      patience: "Je suis humaine. Mon énervement est un appel au secours de mon corps fatigué. Je répare avec amour. 🧘‍♀️",
-      isolated: "Demander de l'aide n'est pas une faiblesse. Je mérite d'être épaulée et entourée. 🤝",
-      general: "Je fais de mon mieux à chaque instant avec l'énergie disponible. C'est amplement suffisant. ✨"
+      overwhelmed: "I can't do everything, and that's perfectly okay. My priority is my calm. 🌸",
+      guilt: "My kids don't need a perfect mom, they need a happy, peaceful mom. ❤️",
+      exhausted: "Rest is a biological necessity, not a reward to earn. I allow myself to slow down. 🥱",
+      patience: "I am human. My frustration is a cry for help from my tired body. I repair with love. 🧘‍♀️",
+      isolated: "Asking for help isn't weakness. I deserve to be supported and surrounded. 🤝",
+      general: "I'm doing my best at every moment with the energy I have. That's more than enough. ✨"
     };
     return mantras[mood];
   };
 
   const toneLabel = {
-    sweetness: 'doux, réconfortant, comme un câlin verbal',
-    perspective: 'posé, qui aide à prendre du recul',
-    energy: 'énergique et motivant',
+    sweetness: 'gentle, comforting, like a verbal hug',
+    perspective: 'calm, helping to step back and reflect',
+    energy: 'energetic and motivating',
   };
 
   const fetchAiReply = async (): Promise<string> => {
-    const prompt = `Une maman se sent "${selectedMood}" et écrit : "${
-      userText || "(elle n'a rien précisé, réconforte-la simplement sur cette humeur)"
-    }". Réponds-lui en français, sur un ton ${toneLabel[selectedTone]}, en 3-4 phrases courtes, sans liste ni markdown, comme une amie bienveillante et psychologue.`;
+    const prompt = `A mom feels "${selectedMood}" and writes: "${
+      userText || "(she didn't specify anything, simply comfort her about this mood)"
+    }". Reply to her in English, in a ${toneLabel[selectedTone]} tone, in 3-4 short sentences, no lists or markdown, like a caring friend and psychologist.`;
 
     const res = await fetch('/api/chat', {
       method: 'POST',
@@ -215,7 +215,7 @@ export default function AISupportWidget() {
     });
     const data = await res.json();
     if (!res.ok || !data.answer) {
-      throw new Error(data.error || 'réponse vide');
+      throw new Error(data.error || 'empty response');
     }
     return data.answer as string;
   };
@@ -228,7 +228,7 @@ export default function AISupportWidget() {
     try {
       response = await fetchAiReply();
     } catch {
-      // Repli sur les réponses pré-écrites si l'API Mistral est indisponible.
+      // Fall back to pre-written responses if the Mistral API is unavailable.
       response = generateDynamicResponse(selectedMood, userText, selectedTone);
     }
 
@@ -283,12 +283,12 @@ export default function AISupportWidget() {
               <Sparkles className="w-5.5 h-5.5 fill-rose-100 stroke-[2.5px]" />
             </div>
             <div>
-              <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">Mon Allié IA Anti-Culpabilité</h2>
-              <p className="text-[11px] text-stone-500 font-bold">Un soutien psychologique léger et immédiat pour libérer ton cœur.</p>
+              <h2 className="text-base font-black uppercase tracking-wider text-[#4B4453] font-display">My Anti-Guilt AI Ally</h2>
+              <p className="text-[11px] text-stone-500 font-bold">Light, immediate psychological support to free your heart.</p>
             </div>
           </div>
           <div className="text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1.5 rounded-xl self-start md:self-center">
-            🔒 Confidentialité totale : Rien n'est stocké en ligne
+            🔒 Total privacy: Nothing is stored online
           </div>
         </div>
       </div>
@@ -302,16 +302,16 @@ export default function AISupportWidget() {
             {/* Step 1: Mood */}
             <div className="space-y-2.5">
               <label className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center gap-1.5">
-                <Smile className="w-4 h-4 text-purple-500" /> 1. Quelle est l'ombre sur ton cœur ?
+                <Smile className="w-4 h-4 text-purple-500" /> 1. What's weighing on your heart?
               </label>
               <div className="grid grid-cols-2 gap-1.5">
                 {[
-                  { id: 'overwhelmed', label: "Débordée 🌀" },
-                  { id: 'guilt', label: "Culpabilité 🥺" },
-                  { id: 'exhausted', label: "Fatigue intense 🥱" },
-                  { id: 'patience', label: "Perte de patience ⚡" },
-                  { id: 'isolated', label: "Isolement 👤" },
-                  { id: 'general', label: "Besoin d'écoute ✨" }
+                  { id: 'overwhelmed', label: "Overwhelmed 🌀" },
+                  { id: 'guilt', label: "Guilt 🥺" },
+                  { id: 'exhausted', label: "Intense fatigue 🥱" },
+                  { id: 'patience', label: "Lost my patience ⚡" },
+                  { id: 'isolated', label: "Isolation 👤" },
+                  { id: 'general', label: "Need to talk ✨" }
                 ].map((item) => (
                   <button
                     key={item.id}
@@ -331,20 +331,20 @@ export default function AISupportWidget() {
             {/* Step 2: Custom Text Area */}
             <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center justify-between">
-                <span>2. Vide ton sac (facultatif) :</span>
-                <span className="text-[9px] text-stone-400 lowercase italic normal-case">écris librement sans filtre</span>
+                <span>2. Get it off your chest (optional):</span>
+                <span className="text-[9px] text-stone-400 lowercase italic normal-case">write freely, no filter</span>
               </label>
               <textarea
                 value={userText}
                 onChange={(e) => setUserText(e.target.value)}
-                placeholder="Raconte brièvement ton moment difficile, ton énervement, ou pourquoi tu t'en veux aujourd'hui..."
+                placeholder="Briefly share your hard moment, your frustration, or why you're being hard on yourself today..."
                 rows={4}
                 className="w-full bg-stone-50/50 border-2 border-stone-200 rounded-2xl p-3.5 text-xs text-[#4B4453] font-bold placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#FF6B6B] focus:border-transparent resize-none leading-relaxed"
               />
 
               {/* Presets suggestions */}
               <div className="space-y-1.5">
-                <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">Idées rapides :</span>
+                <span className="text-[9px] font-black uppercase tracking-wider text-stone-400">Quick ideas:</span>
                 <div className="flex flex-wrap gap-1">
                   {PRESET_PROMPTS.map((preset) => (
                     <button
@@ -362,13 +362,13 @@ export default function AISupportWidget() {
             {/* Step 3: Choose Tone */}
             <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center gap-1.5">
-                <Compass className="w-4 h-4 text-emerald-600" /> 3. Choisis la fiole de l'IA :
+                <Compass className="w-4 h-4 text-emerald-600" /> 3. Choose the AI's potion:
               </label>
               <div className="flex gap-2">
                 {[
-                  { id: 'sweetness', label: "Douceur 🌸", desc: "Câlin verbal" },
-                  { id: 'perspective', label: "Perspective 💡", desc: "Prendre du recul" },
-                  { id: 'energy', label: "Énergie ⚡", desc: "Motivation" }
+                  { id: 'sweetness', label: "Gentleness 🌸", desc: "Verbal hug" },
+                  { id: 'perspective', label: "Perspective 💡", desc: "Step back" },
+                  { id: 'energy', label: "Energy ⚡", desc: "Motivation" }
                 ].map((tone) => (
                   <button
                     key={tone.id}
@@ -394,11 +394,11 @@ export default function AISupportWidget() {
             >
               {isGenerating ? (
                 <>
-                  <RefreshCw className="w-4 h-4 animate-spin stroke-[2.5px]" /> Formulation de douceur...
+                  <RefreshCw className="w-4 h-4 animate-spin stroke-[2.5px]" /> Crafting kindness...
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4.5 h-4.5 fill-white shrink-0" /> Échanger avec mon Allié IA
+                  <Sparkles className="w-4.5 h-4.5 fill-white shrink-0" /> Talk to my AI Ally
                 </>
               )}
             </button>
@@ -421,9 +421,9 @@ export default function AISupportWidget() {
                   <MessageSquare className="w-7 h-7 stroke-[2px]" />
                 </div>
                 <div className="max-w-xs space-y-2">
-                  <h3 className="font-black text-[#4B4453] uppercase tracking-wider text-sm">Prête à relâcher tes tensions ?</h3>
+                  <h3 className="font-black text-[#4B4453] uppercase tracking-wider text-sm">Ready to release your tension?</h3>
                   <p className="text-stone-500 text-xs font-bold leading-relaxed">
-                    Sélectionne ton humeur actuelle à gauche et clique sur "Échanger" pour recevoir des mots doux sur-mesure et déculpabilisants.
+                    Select your current mood on the left and click "Talk" to receive tailored, guilt-freeing kind words.
                   </p>
                 </div>
               </motion.div>
@@ -440,20 +440,20 @@ export default function AISupportWidget() {
                   {/* Badge */}
                   <div className="flex justify-between items-center border-b border-[#4B4453]/10 pb-3">
                     <span className="text-[10px] font-black uppercase tracking-widest text-[#FF6B6B] bg-[#FFF4E0] border border-rose-200 px-3 py-1 rounded-full flex items-center gap-1">
-                      <Sparkles className="w-3.5 h-3.5 fill-rose-100" /> Réponse bienveillante
+                      <Sparkles className="w-3.5 h-3.5 fill-rose-100" /> Caring response
                     </span>
                     <button
                       onClick={handleReset}
                       className="text-[10px] text-[#4B4453]/60 hover:text-[#4B4453] font-black uppercase tracking-wider flex items-center gap-1 cursor-pointer transition-colors"
                     >
-                      <RefreshCw className="w-3.5 h-3.5 stroke-[2.5px]" /> Nouveau message
+                      <RefreshCw className="w-3.5 h-3.5 stroke-[2.5px]" /> New message
                     </button>
                   </div>
 
                   {/* Message body */}
                   <div className="min-h-[140px] text-xs font-bold leading-relaxed text-[#4B4453] whitespace-pre-line bg-white/50 border border-amber-100 p-4 rounded-2xl italic">
                     <Quote className="w-8 h-8 text-[#FF6B6B]/20 absolute top-12 left-5 -z-10" />
-                    {typedResponse || "Analyse en cours..."}
+                    {typedResponse || "Analyzing..."}
                     {typedResponse.length < aiResponse.length && (
                       <span className="inline-block w-1.5 h-4 bg-[#FF6B6B] animate-pulse ml-0.5" />
                     )}
@@ -465,14 +465,14 @@ export default function AISupportWidget() {
                       <div className="flex items-start gap-2">
                         <span className="text-lg">🔑</span>
                         <div>
-                          <p className="text-[9px] font-black uppercase tracking-wider text-emerald-800">Mantra du moment :</p>
+                          <p className="text-[9px] font-black uppercase tracking-wider text-emerald-800">Mantra of the moment:</p>
                           <p className="text-xs font-black text-emerald-950 mt-0.5 leading-snug">{activeMantra}</p>
                         </div>
                       </div>
                       <button
                         onClick={handleCopyMantra}
                         className="p-2 bg-white hover:bg-stone-50 border border-[#4B4453] rounded-lg cursor-pointer transition-all shrink-0"
-                        title="Copier le mantra"
+                        title="Copy the mantra"
                       >
                         {isCopied ? (
                           <Check className="w-4.5 h-4.5 text-emerald-600 stroke-[3px]" />
@@ -496,7 +496,7 @@ export default function AISupportWidget() {
                       <span className="text-xl">🧘‍♀️</span>
                       <div>
                         <h3 className="text-xs font-black uppercase tracking-wider text-[#4B4453]">{activeGrounding.title}</h3>
-                        <p className="text-[10px] text-stone-500 font-bold">Pour faire descendre la tension corporelle tout de suite.</p>
+                        <p className="text-[10px] text-stone-500 font-bold">To release physical tension right away.</p>
                       </div>
                     </div>
 

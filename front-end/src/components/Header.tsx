@@ -50,13 +50,13 @@ export default function Header({
 
   // Encouraging quote based on progress
   const getEncouragement = () => {
-    if (totalTasksCount === 0) return "C'est le moment de souffler un peu ! ☕";
+    if (totalTasksCount === 0) return "Time to take a little breather! ☕";
     const ratio = completedTasksCount / totalTasksCount;
-    if (ratio === 1) return "Incroyable ! Tu as tout géré aujourd'hui. Offre-toi un vrai moment de pause ! 🎉";
-    if (ratio >= 0.7) return "Presque fini ! Tu t'en sors comme une chef. ❤️";
-    if (ratio >= 0.4) return "Tu avances super bien ! Un pas après l'autre. ✨";
-    if (ratio > 0) return "C'est parti ! Chaque petite tâche faite est une victoire. 💪";
-    return "Une chose à la fois. Respire, tu es une super maman ! 🌸";
+    if (ratio === 1) return "Incredible! You handled everything today. Treat yourself to a real break! 🎉";
+    if (ratio >= 0.7) return "Almost done! You're crushing it. ❤️";
+    if (ratio >= 0.4) return "You're making great progress! One step at a time. ✨";
+    if (ratio > 0) return "Here we go! Every little task done is a victory. 💪";
+    return "One thing at a time. Breathe, you're a super mom! 🌸";
   };
 
   const progressPercentage = totalTasksCount > 0 ? Math.round((completedTasksCount / totalTasksCount) * 100) : 0;
@@ -72,7 +72,7 @@ export default function Header({
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-2xl font-black font-display tracking-tight text-[#4B4453]">
-                Douce journée, Maman !
+                Have a sweet day, Mom!
               </h1>
             </div>
             <p className="text-stone-800 text-sm font-semibold mt-1 flex items-center gap-1 opacity-90">
@@ -109,9 +109,9 @@ export default function Header({
             <span className="absolute text-xs font-black text-amber-900">{progressPercentage}%</span>
           </div>
           <div className="min-w-0">
-            <div className="text-xs font-black text-[#4B4453] uppercase tracking-wider truncate">Charge du jour</div>
+            <div className="text-xs font-black text-[#4B4453] uppercase tracking-wider truncate">Today's Load</div>
             <div className="text-stone-700 text-xs font-semibold">
-              {completedTasksCount} / {totalTasksCount} faites
+              {completedTasksCount} / {totalTasksCount} done
             </div>
           </div>
         </div>
@@ -121,14 +121,14 @@ export default function Header({
       <div className="bg-white rounded-[24px] p-4 shadow-sm border-b-2 border-r-2 border-stone-200">
         <div className="flex items-center justify-between mb-3 px-1">
           <span className="text-xs font-black uppercase tracking-wider text-[#4B4453] flex items-center gap-1.5">
-            <User className="w-4 h-4 text-[#4B4453]" /> Filtrer par Enfant
+            <User className="w-4 h-4 text-[#4B4453]" /> Filter by Child
           </span>
           <button
             onClick={() => setShowAddModal(true)}
             className="text-xs font-black text-rose-500 hover:text-rose-600 bg-rose-50 hover:bg-rose-100 transition-all flex items-center gap-1 py-1.5 px-3 rounded-xl border border-rose-200"
             id="add-child-btn"
           >
-            <Plus className="w-3.5 h-3.5 stroke-[3px]" /> Ajouter un enfant
+            <Plus className="w-3.5 h-3.5 stroke-[3px]" /> Add a child
           </button>
         </div>
 
@@ -142,7 +142,7 @@ export default function Header({
                 : 'bg-stone-50 text-stone-600 hover:bg-stone-100 border-stone-200'
             }`}
           >
-            🏡 Toute la famille
+            🏡 Whole family
           </button>
 
           {/* Render Kids */}
@@ -171,12 +171,12 @@ export default function Header({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (confirm(`Supprimer ${child.name} ? Ses tâches associées perdront leur étiquette.`)) {
+                    if (confirm(`Delete ${child.name}? Their associated tasks will lose this label.`)) {
                       onDeleteChild(child.id);
                     }
                   }}
                   className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 hover:bg-red-50 hover:text-red-600 rounded-full text-stone-400"
-                  title={`Supprimer ${child.name}`}
+                  title={`Delete ${child.name}`}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -198,7 +198,7 @@ export default function Header({
             >
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-bold font-display text-stone-800 flex items-center gap-1.5">
-                  <Sparkles className="w-5 h-5 text-amber-500" /> Ajouter un enfant
+                  <Sparkles className="w-5 h-5 text-amber-500" /> Add a Child
                 </h3>
                 <button
                   onClick={() => setShowAddModal(false)}
@@ -211,12 +211,12 @@ export default function Header({
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold uppercase text-stone-400 mb-1.5">
-                    Prénom de l'enfant
+                    Child's first name
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="Léo, Sarah, Emma..."
+                    placeholder="Leo, Sarah, Emma..."
                     value={newChildName}
                     onChange={(e) => setNewChildName(e.target.value)}
                     className="w-full px-4 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-stone-800 font-medium placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-rose-400 focus:border-transparent transition-all"
@@ -227,7 +227,7 @@ export default function Header({
                 {/* Emoji selection */}
                 <div>
                   <label className="block text-xs font-bold uppercase text-stone-400 mb-1.5">
-                    Choisir un avatar emoji
+                    Choose an avatar emoji
                   </label>
                   <div className="grid grid-cols-5 gap-2">
                     {PRESET_EMOJIS.map((emoji) => (
@@ -250,7 +250,7 @@ export default function Header({
                 {/* Color selection */}
                 <div>
                   <label className="block text-xs font-bold uppercase text-stone-400 mb-1.5">
-                    Couleur d'identification
+                    Identification color
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     {PRESET_COLORS.map((color) => {
@@ -276,7 +276,7 @@ export default function Header({
                   type="submit"
                   className="w-full py-3 bg-stone-800 hover:bg-stone-900 text-white font-semibold rounded-xl shadow-xs hover:shadow-md transition-all cursor-pointer mt-2"
                 >
-                  Ajouter à l'organiseur
+                  Add to organizer
                 </button>
               </form>
             </motion.div>

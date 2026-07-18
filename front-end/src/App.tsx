@@ -18,32 +18,32 @@ import { motion, AnimatePresence } from 'motion/react';
 
 // Seeding default children if empty
 const DEFAULT_CHILDREN: Child[] = [
-  { id: 'leo', name: 'Léo', avatarColor: 'bg-sky-100 text-sky-700 border-sky-300 ring-sky-400', icon: '👦' },
+  { id: 'leo', name: 'Leo', avatarColor: 'bg-sky-100 text-sky-700 border-sky-300 ring-sky-400', icon: '👦' },
   { id: 'sarah', name: 'Sarah', avatarColor: 'bg-pink-100 text-pink-700 border-pink-300 ring-pink-400', icon: '👧' }
 ];
 
 // Seeding default tasks if empty
 const DEFAULT_TASKS: Task[] = [
-  { id: 'task-1', title: 'Remplir l\'autorisation de sortie scolaire de Sarah 🎒', category: 'kids', childId: 'sarah', isCompleted: false, isPriority: true, createdAt: new Date().toISOString() },
-  { id: 'task-2', title: 'Prendre rendez-vous pédiatre (rappel vaccin Léo) 🏥', category: 'urgent', childId: 'leo', isCompleted: false, isPriority: true, createdAt: new Date().toISOString() },
-  { id: 'task-3', title: 'Lancer une machine de blanc (vêtements sport) 🧺', category: 'home', isCompleted: false, isPriority: false, createdAt: new Date().toISOString() },
-  { id: 'task-4', title: 'Préparer le goûter d\'anniversaire de Léo 🎂', category: 'kids', childId: 'leo', isCompleted: false, isPriority: false, createdAt: new Date().toISOString() },
-  { id: 'task-5', title: 'Boire un thé bien chaud (rien que pour moi !) ☕', category: 'personal', isCompleted: false, isPriority: false, createdAt: new Date().toISOString() }
+  { id: 'task-1', title: 'Fill out Sarah\'s school outing permission slip 🎒', category: 'kids', childId: 'sarah', isCompleted: false, isPriority: true, createdAt: new Date().toISOString() },
+  { id: 'task-2', title: 'Book pediatrician appointment (Leo\'s vaccine reminder) 🏥', category: 'urgent', childId: 'leo', isCompleted: false, isPriority: true, createdAt: new Date().toISOString() },
+  { id: 'task-3', title: 'Run a load of whites (sports clothes) 🧺', category: 'home', isCompleted: false, isPriority: false, createdAt: new Date().toISOString() },
+  { id: 'task-4', title: 'Prepare Leo\'s birthday snack 🎂', category: 'kids', childId: 'leo', isCompleted: false, isPriority: false, createdAt: new Date().toISOString() },
+  { id: 'task-5', title: 'Drink a nice hot tea (just for me!) ☕', category: 'personal', isCompleted: false, isPriority: false, createdAt: new Date().toISOString() }
 ];
 
 // Seeding default meals skeleton
-const DAYS_OF_WEEK = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const DEFAULT_MEALS: Meal[] = DAYS_OF_WEEK.map(day => ({
   day,
   lunch: '',
-  dinner: day === 'Mardi' ? 'Pâtes Carbonara 🍝' : '' // Cute showcase
+  dinner: day === 'Tuesday' ? 'Pasta Carbonara 🍝' : '' // Cute showcase
 }));
 
 // Seeding default groceries
 const DEFAULT_GROCERIES: GroceryItem[] = [
-  { id: 'grocery-1', name: 'Lait demi-écrémé 🥛', category: 'Frais', isBought: false },
-  { id: 'grocery-2', name: 'Bananes bio 🍌', category: 'Fruits/Légumes', isBought: false },
-  { id: 'grocery-3', name: 'Beurre doux 🧈', category: 'Frais', isBought: true }
+  { id: 'grocery-1', name: 'Semi-skimmed milk 🥛', category: 'Fresh', isBought: false },
+  { id: 'grocery-2', name: 'Organic bananas 🍌', category: 'Fruits/Vegetables', isBought: false },
+  { id: 'grocery-3', name: 'Salted butter 🧈', category: 'Fresh', isBought: true }
 ];
 
 export default function App() {
@@ -198,8 +198,8 @@ export default function App() {
                   <Sparkles className="w-6 h-6 fill-white" />
                 </div>
                 <div>
-                  <h1 className="text-lg font-black uppercase tracking-wider text-[#4B4453] font-display">Soutien IA 🧠</h1>
-                  <p className="text-[11px] text-stone-500 font-bold">Ton allié bienveillant, disponible à tout moment.</p>
+                  <h1 className="text-lg font-black uppercase tracking-wider text-[#4B4453] font-display">AI Support 🧠</h1>
+                  <p className="text-[11px] text-stone-500 font-bold">Your caring ally, available anytime.</p>
                 </div>
               </div>
 
@@ -207,7 +207,7 @@ export default function App() {
                 onClick={() => setShowAISupport(false)}
                 className="flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-stone-50 text-[#4B4453] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-all"
               >
-                <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Retour au calme
+                <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Back to calm
               </button>
             </div>
 
@@ -240,7 +240,7 @@ export default function App() {
             }`}
           >
             <ListTodo className="w-4.5 h-4.5 text-rose-500 shrink-0 stroke-[2.5px]" />
-            <span className="truncate">Mes Tâches</span>
+            <span className="truncate">My Tasks</span>
           </button>
 
           <button
@@ -252,7 +252,7 @@ export default function App() {
             }`}
           >
             <Utensils className="w-4.5 h-4.5 text-amber-500 shrink-0 stroke-[2.5px]" />
-            <span className="truncate">Repas & Courses</span>
+            <span className="truncate">Meals & Groceries</span>
           </button>
 
           <button
@@ -264,7 +264,7 @@ export default function App() {
             }`}
           >
             <Smile className="w-4.5 h-4.5 text-purple-500 shrink-0 stroke-[2.5px]" />
-            <span className="truncate">Mon Souffle 🌸</span>
+            <span className="truncate">My Breathing 🌸</span>
           </button>
         </div>
 
@@ -308,21 +308,21 @@ export default function App() {
         <button
           onClick={() => setShowAISupport(true)}
           className="bg-[#FF6B6B] hover:bg-[#ff5555] active:scale-95 text-white p-4.5 rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center gap-2 border-2 border-[#4B4453] border-b-4 border-r-4 font-black uppercase tracking-wider text-xs"
-          title="Soutien IA - Ton allié bienveillant"
+          title="AI Support - Your caring ally"
           id="sticky-ai-support-btn"
         >
           <Sparkles className="w-5.5 h-5.5 animate-pulse shrink-0 fill-white stroke-[2.5px]" />
-          <span>Soutien IA 🧠</span>
+          <span>AI Support 🧠</span>
         </button>
       </div>
 
       {/* COMFORT FOOTER DETAILS */}
       <footer className="mt-12 py-6 border-t-2 border-stone-200 text-center text-xs text-[#4B4453] w-full max-w-4xl font-black uppercase tracking-wider text-[10px]">
         <p className="flex items-center justify-center gap-1.5">
-          Conçu avec <Heart className="w-4.5 h-4.5 text-rose-500 fill-rose-500" /> pour toutes les super-mamans.
+          Made with <Heart className="w-4.5 h-4.5 text-rose-500 fill-rose-500" /> for all the super moms.
         </p>
         <p className="text-[9px] text-stone-400 font-bold tracking-normal mt-2 lowercase normal-case">
-          Toutes les données sont stockées sur ton navigateur. Pas de compte, pas de publicité, accès instantané.
+          All data is stored on your browser. No account, no ads, instant access.
         </p>
       </footer>
     </div>

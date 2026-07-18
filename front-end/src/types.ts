@@ -20,7 +20,7 @@ export interface Task {
 }
 
 export interface Meal {
-  day: string; // 'Lundi', 'Mardi', 'Mercredi', etc.
+  day: string; // 'Monday', 'Tuesday', 'Wednesday', etc.
   lunch: string;
   dinner: string;
   lunchIngredientsAdded?: boolean;
@@ -30,7 +30,7 @@ export interface Meal {
 export interface GroceryItem {
   id: string;
   name: string;
-  category: string; // 'Frais', 'Épicerie', 'Maison', etc.
+  category: string; // 'Fresh', 'Groceries', 'Home', etc.
   isBought: boolean;
   quantity?: string;
 }

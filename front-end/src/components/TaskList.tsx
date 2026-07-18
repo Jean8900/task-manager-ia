@@ -29,21 +29,21 @@ interface TaskListProps {
 
 const CATEGORIES: { value: CategoryType; label: string; icon: React.ReactNode; color: string; bg: string }[] = [
   { value: 'urgent', label: 'Urgent / Admin', icon: <AlertTriangle className="w-4 h-4 text-rose-500" />, color: 'text-rose-600', bg: 'bg-rose-50 border-rose-100' },
-  { value: 'kids', label: 'Enfants / École', icon: <Baby className="w-4 h-4 text-sky-500" />, color: 'text-sky-600', bg: 'bg-sky-50 border-sky-100' },
-  { value: 'home', label: 'Maison / Ménage', icon: <Home className="w-4 h-4 text-emerald-500" />, color: 'text-emerald-600', bg: 'bg-emerald-50 border-emerald-100' },
-  { value: 'meals', label: 'Repas / Courses', icon: <Utensils className="w-4 h-4 text-amber-500" />, color: 'text-amber-600', bg: 'bg-amber-50 border-amber-100' },
-  { value: 'personal', label: 'Mon Souffle / Perso 🌸', icon: <Smile className="w-4 h-4 text-purple-500" />, color: 'text-purple-600', bg: 'bg-purple-50 border-purple-100' }
+  { value: 'kids', label: 'Kids / School', icon: <Baby className="w-4 h-4 text-sky-500" />, color: 'text-sky-600', bg: 'bg-sky-50 border-sky-100' },
+  { value: 'home', label: 'Home / Chores', icon: <Home className="w-4 h-4 text-emerald-500" />, color: 'text-emerald-600', bg: 'bg-emerald-50 border-emerald-100' },
+  { value: 'meals', label: 'Meals / Groceries', icon: <Utensils className="w-4 h-4 text-amber-500" />, color: 'text-amber-600', bg: 'bg-amber-50 border-amber-100' },
+  { value: 'personal', label: 'My Breathing / Personal 🌸', icon: <Smile className="w-4 h-4 text-purple-500" />, color: 'text-purple-600', bg: 'bg-purple-50 border-purple-100' }
 ];
 
 const QUICK_TEMPLATES: { title: string; category: CategoryType; icon: string }[] = [
-  { title: 'Lancer une machine 🧺', category: 'home', icon: '🧺' },
-  { title: 'Plier le linge 👕', category: 'home', icon: '👕' },
-  { title: 'Vider le lave-vaisselle 🍽️', category: 'home', icon: '🍽️' },
-  { title: 'Vérifier les sacs/devoirs 🎒', category: 'kids', icon: '🎒' },
-  { title: 'Remplir le mot de liaison 📝', category: 'kids', icon: '📝' },
-  { title: 'Prendre mon café chaud ! ☕', category: 'personal', icon: '☕' },
-  { title: 'Prendre 5 minutes de pause 🧘‍♀️', category: 'personal', icon: '🧘‍♀️' },
-  { title: 'Boire un grand verre d\'eau 💧', category: 'personal', icon: '💧' }
+  { title: 'Run a load of laundry 🧺', category: 'home', icon: '🧺' },
+  { title: 'Fold the laundry 👕', category: 'home', icon: '👕' },
+  { title: 'Empty the dishwasher 🍽️', category: 'home', icon: '🍽️' },
+  { title: 'Check bags/homework 🎒', category: 'kids', icon: '🎒' },
+  { title: 'Fill out the school notebook 📝', category: 'kids', icon: '📝' },
+  { title: 'Have my hot coffee! ☕', category: 'personal', icon: '☕' },
+  { title: 'Take a 5-minute break 🧘‍♀️', category: 'personal', icon: '🧘‍♀️' },
+  { title: 'Drink a big glass of water 💧', category: 'personal', icon: '💧' }
 ];
 
 export default function TaskList({
@@ -123,7 +123,7 @@ export default function TaskList({
           <div className="flex items-center gap-2">
             <Star className="w-5 h-5 text-amber-500 fill-amber-500 animate-pulse" />
             <h2 className="text-base font-black text-[#4B4453] uppercase tracking-wider font-display">
-              L'essentiel d'aujourd'hui
+              Today's Essentials
             </h2>
           </div>
           <span className="text-xs bg-amber-200/80 text-amber-900 font-black px-2.5 py-1 rounded-full flex items-center gap-1 border border-amber-300">
@@ -132,13 +132,13 @@ export default function TaskList({
         </div>
 
         <p className="text-[#4B4453] text-xs font-semibold mb-4 opacity-85">
-          Ajoute au maximum 3 tâches indispensables pour aujourd'hui. Le reste peut attendre !
+          Add up to 3 must-do tasks for today. Everything else can wait!
         </p>
 
         {priorityTasks.length === 0 ? (
           <div className="text-center py-6 border-2 border-dashed border-amber-300/60 rounded-2xl bg-white/70">
-            <p className="text-amber-800 text-xs font-bold">Aucun essentiel sélectionné pour aujourd'hui.</p>
-            <p className="text-[10px] text-amber-700/80 mt-1 font-semibold">Étoile une tâche ci-dessous pour la placer ici.</p>
+            <p className="text-amber-800 text-xs font-bold">No essentials selected for today.</p>
+            <p className="text-[10px] text-amber-700/80 mt-1 font-semibold">Star a task below to place it here.</p>
           </div>
         ) : (
           <div className="space-y-2.5">
@@ -197,7 +197,7 @@ export default function TaskList({
                       <button
                         onClick={() => onTogglePriority(task.id)}
                         className="p-1.5 text-amber-500 hover:text-amber-600 rounded-lg hover:bg-stone-50 transition-colors"
-                        title="Retirer des essentiels"
+                        title="Remove from essentials"
                       >
                         <Star className="w-4.5 h-4.5 fill-amber-500 text-amber-500" />
                       </button>
@@ -218,7 +218,7 @@ export default function TaskList({
         {activePriorityCount >= 3 && (
           <div className="mt-3 text-[11px] text-amber-950 bg-amber-100 border border-amber-200 p-2.5 rounded-xl flex items-center gap-1.5 font-bold">
             <Flame className="w-4 h-4 text-amber-600 shrink-0" />
-            Super maman, ton essentiel est déjà à 3 tâches ! Pense à te préserver. 🧡
+            Super mom, your essentials are already at 3 tasks! Remember to take care of yourself. 🧡
           </div>
         )}
       </div>
@@ -226,7 +226,7 @@ export default function TaskList({
       {/* SECTION 2: ONE-CLICK QUICK TEMPLATES (UX Critical: Faster Logging) */}
       <div>
         <h3 className="text-xs font-black uppercase tracking-wider text-[#4B4453] mb-2.5 px-1 flex items-center gap-1.5">
-          <span>⚡</span> Ajout Express en 1 clic
+          <span>⚡</span> Quick Add in 1 Click
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {QUICK_TEMPLATES.map((tpl) => (
@@ -249,7 +249,7 @@ export default function TaskList({
             <input
               type="text"
               required
-              placeholder="Ex: Rendez-vous pédiatre à 16h..."
+              placeholder="Ex: Pediatrician appointment at 4pm..."
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               className="flex-1 px-4 py-3 bg-stone-50 border-2 border-stone-200 rounded-2xl text-sm text-[#4B4453] font-bold placeholder-stone-400 focus:outline-hidden focus:ring-2 focus:ring-[#FFD966] focus:border-transparent transition-all"
@@ -267,7 +267,7 @@ export default function TaskList({
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-1 text-xs">
             {/* Category Selector */}
             <div className="flex items-center gap-2">
-              <span className="text-stone-400 font-black text-[10px] uppercase tracking-wider shrink-0">Dossier:</span>
+              <span className="text-stone-400 font-black text-[10px] uppercase tracking-wider shrink-0">Category:</span>
               <div className="flex gap-1 overflow-x-auto no-scrollbar py-0.5 max-w-full">
                 {CATEGORIES.map((cat) => (
                   <button
@@ -291,7 +291,7 @@ export default function TaskList({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-stone-100 text-xs">
             {/* Child Assigner */}
             <div className="flex items-center gap-2">
-              <span className="text-stone-400 font-black text-[10px] uppercase tracking-wider shrink-0">Pour:</span>
+              <span className="text-stone-400 font-black text-[10px] uppercase tracking-wider shrink-0">For:</span>
               <div className="flex gap-1 overflow-x-auto no-scrollbar py-0.5 max-w-full">
                 <button
                   type="button"
@@ -302,7 +302,7 @@ export default function TaskList({
                       : 'bg-stone-50 text-stone-600 border-stone-200/60 hover:bg-stone-100'
                   }`}
                 >
-                  🏠 Toute la famille
+                  🏠 Whole family
                 </button>
 
                 {childrenList.map((child) => (
@@ -331,7 +331,7 @@ export default function TaskList({
                 className="rounded-md border-amber-400 text-amber-500 focus:ring-amber-400 w-4 h-4"
               />
               <span className="text-xs font-black text-amber-800 flex items-center gap-0.5 uppercase tracking-wider">
-                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" /> Indispensable
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" /> Essential
               </span>
             </label>
           </div>
@@ -369,8 +369,8 @@ export default function TaskList({
                     </h3>
                     <p className="text-[10px] text-stone-500 font-bold">
                       {totalInCat === 0
-                        ? 'Aucune tâche active'
-                        : `${completedInCat} de faites sur ${totalInCat}`}
+                        ? 'No active tasks'
+                        : `${completedInCat} done out of ${totalInCat}`}
                     </p>
                   </div>
                 </div>
@@ -385,7 +385,7 @@ export default function TaskList({
                     </div>
                   )}
                   <span className="text-[#4B4453] text-[10px] uppercase tracking-wider font-black px-2 py-1 bg-stone-100 border border-stone-200 rounded-lg">
-                    {isCollapsed ? 'Afficher' : 'Réduire'}
+                    {isCollapsed ? 'Show' : 'Collapse'}
                   </span>
                 </div>
               </button>
@@ -395,7 +395,7 @@ export default function TaskList({
                 <div className="px-4 pb-4 pt-1 border-t-2 border-stone-100 space-y-2">
                   {categoryTasks.length === 0 ? (
                     <div className="text-center py-4 text-stone-400 text-xs font-semibold">
-                      Aucune tâche dans cette catégorie. Utilise le formulaire ci-dessus pour en ajouter une !
+                      No tasks in this category. Use the form above to add one!
                     </div>
                   ) : (
                     <AnimatePresence initial={false}>
@@ -445,7 +445,7 @@ export default function TaskList({
                               <button
                                 onClick={() => onTogglePriority(task.id)}
                                 className="p-1.5 text-stone-300 hover:text-amber-500 hover:bg-amber-50 rounded-lg transition-colors"
-                                title="Ajouter aux essentiels"
+                                title="Add to essentials"
                               >
                                 <Star className="w-4 h-4 stroke-[2px]" />
                               </button>

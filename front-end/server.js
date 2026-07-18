@@ -14,10 +14,10 @@ app.use(express.json());
 app.post('/api/chat', async (req, res) => {
   const { message } = req.body;
   if (!message || typeof message !== 'string') {
-    return res.status(400).json({ error: 'message manquant' });
+    return res.status(400).json({ error: 'missing message' });
   }
   if (!MISTRAL_API_KEY) {
-    return res.status(500).json({ error: 'MISTRAL_API_KEY manquante côté serveur' });
+    return res.status(500).json({ error: 'MISTRAL_API_KEY missing on server' });
   }
 
   try {
@@ -35,14 +35,14 @@ app.post('/api/chat', async (req, res) => {
 
     if (!mistralRes.ok) {
       const errText = await mistralRes.text();
-      return res.status(502).json({ error: `Erreur API Mistral : ${errText}` });
+      return res.status(502).json({ error: `Mistral API error: ${errText}` });
     }
 
     const data = await mistralRes.json();
     const answer = data.choices?.[0]?.message?.content ?? '';
     res.json({ answer });
   } catch (err) {
-    res.status(502).json({ error: `Erreur réseau Mistral : ${err.message}` });
+    res.status(502).json({ error: `Mistral network error: ${err.message}` });
   }
 });
 
