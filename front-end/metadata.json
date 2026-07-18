@@ -1,0 +1,6 @@
+{
+  "name": "Maman Organiseur",
+  "description": "Une application de gestion de tâches et de charge mentale ultra-simplifiée, conçue spécialement pour les mamans, accessible en moins de 3 clics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
