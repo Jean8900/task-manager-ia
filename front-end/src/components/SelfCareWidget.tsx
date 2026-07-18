@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Smile, Heart, Sparkles, Wind, RefreshCw, CheckCircle2, Circle } from 'lucide-react';
+import { Smile, Heart, Sparkles, Wind, RefreshCw, CheckCircle2, Circle, ShieldAlert } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import AISupportWidget from './AISupportWidget';
+import EmergencySOS from './EmergencySOS';
 
 const MATERNAL_AFFIRMATIONS = [
   "Tu fais de ton mieux, et c'est amplement suffisant. ✨",
@@ -22,8 +22,13 @@ const SELF_CARE_TARGETS = [
   { id: 'laugh', text: 'Partager un fou rire ou un câlin de 20 secondes ❤️' }
 ];
 
-export default function SelfCareWidget() {
-  const [activeSubTab, setActiveSubTab] = useState<'breath' | 'ai'>('breath');
+interface SelfCareWidgetProps {
+  todayTasks: { id: string; title: string; isCompleted: boolean }[];
+  onToggleComplete: (id: string) => void;
+}
+
+export default function SelfCareWidget({ todayTasks, onToggleComplete }: SelfCareWidgetProps) {
+  const [activeSubTab, setActiveSubTab] = useState<'breath' | 'sos'>('breath');
   const [affirmationIdx, setAffirmationIdx] = useState(0);
   const [completedTargets, setCompletedTargets] = useState<string[]>(() => {
     const saved = localStorage.getItem('maman_selfcare_completed');
@@ -116,15 +121,15 @@ export default function SelfCareWidget() {
           <span>Souffle & Objectifs</span>
         </button>
         <button
-          onClick={() => setActiveSubTab('ai')}
+          onClick={() => setActiveSubTab('sos')}
           className={`flex-1 py-2 px-3 text-xs font-black uppercase tracking-wider rounded-xl flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
-            activeSubTab === 'ai'
+            activeSubTab === 'sos'
               ? 'bg-white text-[#4B4453] border border-stone-200 shadow-xs'
               : 'text-stone-500 hover:text-[#4B4453]'
           }`}
         >
-          <Sparkles className="w-4 h-4 text-rose-500 fill-rose-100 stroke-[2px]" />
-          <span>Soutien IA 🧠</span>
+          <ShieldAlert className="w-4 h-4 text-rose-500 stroke-[2px]" />
+          <span>S.O.S. Débordement</span>
         </button>
       </div>
 
@@ -284,7 +289,11 @@ export default function SelfCareWidget() {
           </div>
         </div>
       ) : (
-        <AISupportWidget />
+        <EmergencySOS
+          onClose={() => setActiveSubTab('breath')}
+          todayTasks={todayTasks}
+          onToggleComplete={onToggleComplete}
+        />
       )}
     </div>
   );

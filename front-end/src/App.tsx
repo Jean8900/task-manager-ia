@@ -4,14 +4,14 @@ import Header from './components/Header';
 import TaskList from './components/TaskList';
 import MealPlanner from './components/MealPlanner';
 import SelfCareWidget from './components/SelfCareWidget';
-import EmergencySOS from './components/EmergencySOS';
+import AISupportWidget from './components/AISupportWidget';
 import {
   ListTodo,
   Utensils,
   Smile,
-  ShieldAlert,
   Heart,
   Sparkles,
+  ArrowLeft,
   Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -71,7 +71,7 @@ export default function App() {
   // UX Filters
   const [activeChildId, setActiveChildId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'tasks' | 'meals' | 'selfcare'>('tasks');
-  const [showSOS, setShowSOS] = useState(false);
+  const [showAISupport, setShowAISupport] = useState(false);
 
   // --- SAVE STATE EFFECTS ---
   useEffect(() => {
@@ -188,14 +188,31 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FFFBF0] text-[#2D2D2D] pb-24 md:pb-12 flex flex-col items-center px-4" id="maman-tasks-root">
-      {/* Dynamic S.O.S Overlap Screen */}
+      {/* Dynamic AI Support Overlay Screen */}
       <AnimatePresence>
-        {showSOS && (
-          <EmergencySOS
-            onClose={() => setShowSOS(false)}
-            todayTasks={tasks.filter(t => activeChildId === null ? true : t.childId === activeChildId)}
-            onToggleComplete={handleToggleCompleteTask}
-          />
+        {showAISupport && (
+          <div className="fixed inset-0 bg-[#FFFBF0] z-50 flex flex-col overflow-y-auto p-4 md:p-8 border-t-[8px] border-rose-400" id="ai-support-layer">
+            <div className="max-w-4xl mx-auto w-full flex items-center justify-between border-b-2 border-stone-200 pb-4 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 bg-rose-400 text-white border-2 border-[#4B4453] border-b-4 border-r-4 rounded-2xl">
+                  <Sparkles className="w-6 h-6 fill-white" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-black uppercase tracking-wider text-[#4B4453] font-display">Soutien IA 🧠</h1>
+                  <p className="text-[11px] text-stone-500 font-bold">Ton allié bienveillant, disponible à tout moment.</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowAISupport(false)}
+                className="flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-stone-50 text-[#4B4453] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-all"
+              >
+                <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Retour au calme
+              </button>
+            </div>
+
+            <AISupportWidget />
+          </div>
         )}
       </AnimatePresence>
 
@@ -278,21 +295,24 @@ export default function App() {
           )}
 
           {activeTab === 'selfcare' && (
-            <SelfCareWidget />
+            <SelfCareWidget
+              todayTasks={tasks.filter(t => activeChildId === null ? true : t.childId === activeChildId)}
+              onToggleComplete={handleToggleCompleteTask}
+            />
           )}
         </main>
       </div>
 
-      {/* STICKY S.O.S. EMERGENCY FLOATING BUTTON - Click 1: Immediate relief */}
+      {/* STICKY SOUTIEN IA FLOATING BUTTON - Click 1: Immediate comfort */}
       <div className="fixed bottom-6 right-6 z-40">
         <button
-          onClick={() => setShowSOS(true)}
+          onClick={() => setShowAISupport(true)}
           className="bg-[#FF6B6B] hover:bg-[#ff5555] active:scale-95 text-white p-4.5 rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer flex items-center gap-2 border-2 border-[#4B4453] border-b-4 border-r-4 font-black uppercase tracking-wider text-xs"
-          title="S.O.S. Débordement - Respire et simplifie"
-          id="sticky-sos-btn"
+          title="Soutien IA - Ton allié bienveillant"
+          id="sticky-ai-support-btn"
         >
-          <ShieldAlert className="w-5.5 h-5.5 animate-pulse shrink-0 stroke-[2.5px]" />
-          <span>S.O.S. Débordement</span>
+          <Sparkles className="w-5.5 h-5.5 animate-pulse shrink-0 fill-white stroke-[2.5px]" />
+          <span>Soutien IA 🧠</span>
         </button>
       </div>
 

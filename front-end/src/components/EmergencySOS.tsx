@@ -74,7 +74,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
   };
 
   return (
-    <div className="fixed inset-0 bg-[#FFFBF0] z-50 flex flex-col justify-between overflow-y-auto p-4 md:p-8 select-none border-t-[8px] border-rose-500" id="emergency-sos-layer">
+    <div className="bg-[#FFFBF0] flex flex-col justify-between animate-fade-in w-full max-w-4xl mx-auto" id="emergency-sos-layer">
       {/* HEADER SECTION */}
       <div className="max-w-4xl mx-auto w-full flex items-center justify-between border-b-2 border-stone-200 pb-4">
         <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export default function EmergencySOS({ onClose, todayTasks, onToggleComplete }: 
           onClick={onClose}
           className="flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-stone-50 text-[#4B4453] border-2 border-[#4B4453] border-b-4 border-r-4 rounded-xl text-xs font-black uppercase tracking-wider cursor-pointer transition-all"
         >
-          <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Retour au calme
+          <ArrowLeft className="w-4 h-4 stroke-[3px]" /> Retour au souffle
         </button>
       </div>
 
