@@ -1,4 +1,4 @@
-streamlit
-mistralai
-python-dotenv
-SpeechRecognition
+streamlit==1.51.0
+mistralai==2.7.0
+python-dotenv==1.1.0
+SpeechRecognition==3.17.0

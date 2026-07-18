@@ -9,7 +9,15 @@ load_dotenv()
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY", "")
 MISTRAL_MODEL = "mistral-small-latest"
 
+# Railway (et la plupart des PaaS) injectent PORT au runtime ; en local cette
+# variable est absente. On s'en sert pour désactiver les features qui ne
+# marchent qu'avec un micro physique (Railway est un container headless).
+IS_CLOUD = bool(os.getenv("PORT"))
+
 st.set_page_config(page_title="Task Manager IA", layout="centered")
+
+if not MISTRAL_API_KEY:
+    st.error("⚠️ MISTRAL_API_KEY manquante. Configure-la en variable d'environnement (Railway → Variables) ou dans .env en local. Le chat IA est désactivé tant qu'elle n'est pas définie.")
 
 if "tasks" not in st.session_state:
     st.session_state.tasks = []  # list of {"text": str, "done": bool}
@@ -57,13 +65,14 @@ with st.form("add_task_form", clear_on_submit=True):
     if submitted:
         add_task(new_task)
 
-if st.button("🎤 Dicter une tâche"):
-    try:
-        text = transcribe_from_microphone()
-        add_task(text)
-        st.success(f"Ajouté : {text}")
-    except Exception as e:
-        st.error(f"Échec de la dictée : {e}")
+if not IS_CLOUD:
+    if st.button("🎤 Dicter une tâche"):
+        try:
+            text = transcribe_from_microphone()
+            add_task(text)
+            st.success(f"Ajouté : {text}")
+        except Exception as e:
+            st.error(f"Échec de la dictée : {e}")
 
 for i, task in enumerate(st.session_state.tasks):
     col1, col2 = st.columns([5, 1])
