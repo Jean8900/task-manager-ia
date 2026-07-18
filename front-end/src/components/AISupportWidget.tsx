@@ -204,14 +204,14 @@ export default function AISupportWidget() {
   };
 
   const fetchAiReply = async (): Promise<string> => {
-    const prompt = `A mom feels "${selectedMood}" and writes: "${
-      userText || "(she didn't specify anything, simply comfort her about this mood)"
-    }". Reply to her in English, in a ${toneLabel[selectedTone]} tone, in 3-4 short sentences, no lists or markdown, like a caring friend and psychologist.`;
+    const systemPrompt = `You are a warm, emotionally intelligent AI companion inside a mental-load app for moms. A mom just selected the mood "${selectedMood}" and may have shared something with you. Actually read and respond to what she specifically wrote - never give a generic, templated, or scripted-sounding reply. Adapt to what she really said: if she shares something emotional, comfort her genuinely; if she asks something concrete or off-topic, engage with it naturally and honestly before gently bringing warmth back in. Reply in English, in a ${toneLabel[selectedTone]} tone, in 3-4 short sentences, no lists or markdown, like a real, present friend - not a script.`;
+
+    const userMessage = userText || `I'm feeling ${selectedMood} today and haven't written anything specific, just comfort me about this mood.`;
 
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: prompt }),
+      body: JSON.stringify({ message: userMessage, system: systemPrompt }),
     });
     const data = await res.json();
     if (!res.ok || !data.answer) {

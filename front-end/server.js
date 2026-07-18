@@ -16,13 +16,19 @@ const app = express();
 app.use(express.json());
 
 app.post('/api/chat', async (req, res) => {
-  const { message } = req.body;
+  const { message, system } = req.body;
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'missing message' });
   }
   if (!MISTRAL_API_KEY) {
     return res.status(500).json({ error: 'MISTRAL_API_KEY missing on server' });
   }
+
+  const messages = [];
+  if (system && typeof system === 'string') {
+    messages.push({ role: 'system', content: system });
+  }
+  messages.push({ role: 'user', content: message });
 
   try {
     const mistralRes = await fetch('https://api.mistral.ai/v1/chat/completions', {
@@ -33,7 +39,7 @@ app.post('/api/chat', async (req, res) => {
       },
       body: JSON.stringify({
         model: MISTRAL_MODEL,
-        messages: [{ role: 'user', content: message }],
+        messages,
       }),
     });
 
